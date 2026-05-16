@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 =============================================================================
-ANNEXE E — CODES PYTHON DE GÉNÉRATION DES FIGURES DE LA THÈSE
+generate_figures.py — Codes Python de génération des figures de la thèse
 
 Thèse : Vers une gouvernance inclusive, durable et fiable du numérique :
 modélisation systémique de l'inclusion, de la soutenabilité et de la
@@ -11,14 +11,20 @@ Auteurs : Karim Attoumani Mohamed & Jérôme Velo
 Université de Toamasina — Faculté des Sciences et Technologies
 Doctorat en Mathématiques, Informatique et Applications, 2025
 
+Dépôt GitHub :
+  https://github.com/karimattoumanimohamed/these-gouvernance-numerique-IST
+
+Usage :
+  python simulation/generate_figures.py
+
 Organisation :
-  E.1  Dépendances et configuration commune
-  E.2  Figure 3.1 — Réseau DSGM et niveaux de participation
-  E.3  Figure 3.2 — Simulation participation sous trois scénarios
-  E.4  Figure 4.1 — Projections énergétiques Afrique 2024-2030
-  E.5  Figure 4.2 — Effet du coefficient d'orchestration λ
-  E.6  Figure 5.1 — Dégradation non linéaire UAMINIFU
-  E.7  Figures 6.1, 6.2, 6.3 — Modèle G(t) : scénarios, sensibilité λ, Comores
+  Section 1  — Dépendances et configuration commune
+  Section 2  — Figure 3.1 : Réseau DSGM et niveaux de participation
+  Section 3  — Figure 3.2 : Simulation participation sous trois scénarios
+  Section 4  — Figure 4.1 : Projections énergétiques Afrique 2024-2030
+  Section 5  — Figure 4.2 : Effet du coefficient d'orchestration λ
+  Section 6  — Figure 5.1 : Dégradation non linéaire UAMINIFU
+  Section 7  — Figures 6.1, 6.2, 6.3 : Modèle G(t)
 
 Point d'entrée : exécuter main() pour générer toutes les figures.
 Les fichiers PNG sont sauvegardés dans le répertoire courant.
@@ -26,7 +32,7 @@ Les fichiers PNG sont sauvegardés dans le répertoire courant.
 """
 
 # =============================================================================
-# E.1 — DÉPENDANCES ET CONFIGURATION COMMUNE
+# A.1 — DÉPENDANCES ET CONFIGURATION COMMUNE
 # =============================================================================
 
 import matplotlib
@@ -65,7 +71,7 @@ OUTPUT_DIR = "./"   # Modifier pour changer le répertoire de sortie
 
 
 # =============================================================================
-# E.2 — FIGURE 3.1 : RÉSEAU D'INFLUENCE PONDÉRÉ (DSGM)
+# A.2 — FIGURE 3.1 : RÉSEAU D'INFLUENCE PONDÉRÉ (DSGM)
 #        ET ÉVOLUTION TEMPORELLE DE LA PARTICIPATION P_i(t)
 #
 # Source : Karim & Velo (2025a), IEEE ICECER
@@ -222,7 +228,7 @@ def generate_figure_3_1(save=True):
 
 
 # =============================================================================
-# E.3 — FIGURE 3.2 : SIMULATION TEMPORELLE DE LA PARTICIPATION
+# A.3 — FIGURE 3.2 : SIMULATION TEMPORELLE DE LA PARTICIPATION
 #        SOUS TROIS SCÉNARIOS DE POLITIQUE D'INCLUSION
 #
 # Équation DSGM (Karim & Velo, 2025a, Éq. 3) :
@@ -352,7 +358,7 @@ def generate_figure_3_2(save=True):
 
 
 # =============================================================================
-# E.4 — FIGURE 4.1 : PROJECTIONS ÉNERGÉTIQUES AFRIQUE 2024-2030
+# A.4 — FIGURE 4.1 : PROJECTIONS ÉNERGÉTIQUES AFRIQUE 2024-2030
 #
 # Équations (Karim & Velo, 2025b) :
 #   E(t) = E₀ · e^(αt)          [Éq. 1 — énergie]
@@ -486,7 +492,7 @@ def generate_figure_4_1(save=True):
 
 
 # =============================================================================
-# E.5 — FIGURE 4.2 : EFFET DU COEFFICIENT D'ORCHESTRATION λ
+# A.5 — FIGURE 4.2 : EFFET DU COEFFICIENT D'ORCHESTRATION λ
 #
 # Équation (Karim & Velo, 2025b, Éq. 3) :
 #   Q'(t) = Q(t) · λ,  λ ∈ [5, 100]
@@ -603,7 +609,7 @@ def generate_figure_4_2(save=True):
 
 
 # =============================================================================
-# E.6 — FIGURE 5.1 : DÉGRADATION NON LINÉAIRE DE LA CONFIANCE — UAMINIFU
+# A.6 — FIGURE 5.1 : DÉGRADATION NON LINÉAIRE DE LA CONFIANCE — UAMINIFU
 #
 # Équations (Karim & Velo, soumis CARI 2026) :
 #   T  = α·(ΣSᵢ)^γ − β·(ΣRⱼ)^δ − Σλⱼₖ(Rⱼ·Rₖ)   [DTI]
@@ -755,7 +761,7 @@ def generate_figure_5_1(save=True):
 
 
 # =============================================================================
-# E.7 — FIGURES 6.1, 6.2, 6.3 : MODÈLE DYNAMIQUE G(t)
+# A.7 — FIGURES 6.1, 6.2, 6.3 : MODÈLE DYNAMIQUE G(t)
 #
 # Équation de gouvernance (Chapitre 2) :
 #   G_t = α·I_t^γ + β·S_t^δ + χ·T_t^θ − φ·R_t
@@ -883,7 +889,7 @@ def generate_figure_6_1(save=True):
                ncol=2, fontsize=8, framealpha=0.9)
 
     fig.text(0.5, -0.01,
-        "Source : simulation du modèle dynamique G(t), code Python Annexe A & Annexe E. "
+        "Source : simulation du modèle dynamique G(t), code Python Annexe A. "
         "Paramètres : α=0,35, β=0,35, χ=0,30, γ=1,15, δ=1,55, θ=1,35, φ=0,50, Rc=0,62, κ=7,0.",
         ha='center', fontsize=7.5, color='#555555', style='italic')
 
@@ -934,7 +940,7 @@ def generate_figure_6_2(save=True):
                      arrowprops=dict(arrowstyle='->', color='darkred', lw=0.8))
 
     fig.text(0.5, -0.04,
-        "Source : simulation du modèle dynamique G(t), code Python Annexe A & Annexe E. "
+        "Source : simulation du modèle dynamique G(t), code Python Annexe A. "
         "Paramètres : S₀=0,42, I₀=0,35, T₀=0,45, X_t=0,75.",
         ha='center', fontsize=7.5, color='#555555', style='italic')
 
@@ -1007,7 +1013,7 @@ def generate_figure_6_3(save=True):
               bbox=dict(boxstyle='round', facecolor='#f0f4f8', alpha=0.8))
 
     fig.text(0.5, -0.02,
-        "Source : simulation du modèle dynamique G(t), code Python Annexe A & Annexe E. "
+        "Source : simulation du modèle dynamique G(t), code Python Annexe A. "
         "Conditions initiales estimées — ITU, World Bank, GSMA (2023-2024).",
         ha='center', fontsize=7.5, color='#555555', style='italic')
 
@@ -1025,7 +1031,7 @@ def generate_figure_6_3(save=True):
 
 def main():
     print("=" * 65)
-    print("ANNEXE E — Génération de toutes les figures de la thèse")
+    print("ANNEXE A — Génération de toutes les figures de la thèse")
     print("Karim Attoumani Mohamed & Jérôme Velo")
     print("Université de Toamasina, 2025")
     print("=" * 65)
