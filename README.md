@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20242475.svg)](https://doi.org/10.5281/zenodo.20242475)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20242474.svg)](https://doi.org/10.5281/zenodo.20242474)
 
 > **Dépôt de code associé à la thèse de doctorat :**
 >
@@ -306,6 +306,14 @@ https://doi.org/10.1038/sdata.2016.18
 
 ## Citation
 
+**Archivage Zenodo**
+
+| Version | DOI |
+|---|---|
+| Toutes versions (DOI de concept, renvoie à la dernière version) | [10.5281/zenodo.20242474](https://doi.org/10.5281/zenodo.20242474) |
+| v2.0 — version de la thèse (2026) | [10.5281/zenodo.23063106](https://doi.org/10.5281/zenodo.23063106) |
+| v1.0 — état des articles publiés (2025) | [10.5281/zenodo.20242475](https://doi.org/10.5281/zenodo.20242475) |
+
 Si vous utilisez ce code ou ces résultats dans vos travaux, merci de citer :
 
 ```bibtex
@@ -339,6 +347,16 @@ Si vous utilisez ce code ou ces résultats dans vos travaux, merci de citer :
   booktitle = {Proceedings of ICECER 2025},
   year      = {2025},
   doi       = {10.1109/ICECER65523.2025.11401095}
+}
+
+@software{karim2026code,
+  author    = {Karim Attoumani Mohamed and Jérôme Velo},
+  title     = {these-gouvernance-numerique-IST : code source et figures
+               de la th{\`e}se (version 2.0)},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {v2.0},
+  doi       = {10.5281/zenodo.23063106}
 }
 
 @unpublished{karim2026uaminifu,
