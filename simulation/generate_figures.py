@@ -750,11 +750,12 @@ def generate_figure_5_1(save=True):
     # propres ΣSᵢ, termes d'interaction et facteurs de décroissance (α = β = 1) ;
     # ils n'appartiennent pas à cette coupe stylisée (ΣSᵢ = 2,8 ; α = 0,55 ;
     # β = 0,45). Ils sont désormais rappelés dans un encadré, avec les valeurs
-    # recalculées (exposants exacts) et l'instanciation publique des Comores.
+    # recalculées (exposants exacts, décroissance sur R̄ = ΣRⱼ/6 comme au § 5.6.4)
+    # et l'instanciation publique des Comores.
     ax3.text(1.30, -1.35,
              "DTI calculés hors de cette coupe :\n"
-             "Scén. A (§ 5.4.2) : −1,21\n"
-             "Scén. B (§ 5.4.2) : 3,35\n"
+             "Scén. A (§ 5.4.2) : −2,69\n"
+             "Scén. B (§ 5.4.2) : 3,60\n"
              "Comores (§ 5.6.4) : −1,73",
              fontsize=7, color='#333333', va='top',
              bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='#999999', alpha=0.9))
