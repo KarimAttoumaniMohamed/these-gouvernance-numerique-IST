@@ -278,7 +278,7 @@ annotations et commentaires ont changé.
 | Figure 4.2 — λ_c | « Seuil critique λ_c = 40 », « capacité africaine systématiquement dépassée » | « Seuil indicatif λ ≈ 40 (hypothèse de l'article) » | § 4.3.4 |
 | Figure 5.1 — coût de transaction | Ctx = C₀ + θ/T^η | Ctx = C₀ + ω/T^η (θ est réservé à l'exposant de T dans G(t)) | chap. 5 |
 | Figure 5.1 — source | « Manuscrit soumis, CARI 2026 » | Cadre UAMINIFU, chapitre 5 (document de travail) | chap. 5 |
-| Figure 5.1 — scénarios A et B | Points DTI = −1,06 et 3,59 placés sur le panneau C, hors de la courbe | Valeurs recalculées avec les exposants exacts (−1,21 et 3,35), rappelées dans un encadré avec le DTI des Comores (−1,73) : elles ne relèvent pas de la coupe stylisée tracée | § 5.4.2 |
+| Figure 5.1 — scénarios A et B | Points DTI = −1,06 et 3,59 placés sur le panneau C, hors de la courbe | Valeurs recalculées avec les exposants exacts et la décroissance sur R̄ = ΣRⱼ/6 (convention du § 5.6.4), soit −2,69 et 3,60, rappelées dans un encadré avec le DTI des Comores (−1,73) : elles ne relèvent pas de la coupe stylisée tracée | § 5.4.2 |
 | Figure 6.1 — bande verte | « Zone de gouvernance stable » | « Bande indicative 0,3 < G < 0,7 » | § 6.4.1 |
 | Figure 6.2 | Annotation « λ_c ≈ 40 (seuil critique africain) » ; seuil S_c tracé aussi sur le panneau G | Annotation retirée ; saturation A_t = 1 pour λ ≥ 34 indiquée ; S_c tracé sur le seul panneau S | § 6.4.2 |
 | Figure 6.3 | Ligne « S₀ initial » tracée à 0,33 (valeur de I₀) | Ligne retirée | § 6.5 |
