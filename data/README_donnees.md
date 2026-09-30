@@ -1,7 +1,7 @@
 # Sources de données — Thèse I–S–T
 
 > Karim Attoumani Mohamed & Jérôme Velo
-> Université de Toamasina, 2025
+> Université de Toamasina, 2026
 > Dépôt : https://github.com/karimattoumanimohamed/these-gouvernance-numerique-IST
 
 Ce document décrit l'ensemble des sources de données mobilisées dans la thèse
@@ -15,7 +15,7 @@ traitement appliqué et les figures concernées.
 
 **Description**
 Données longitudinales de participation aux Forums sur la gouvernance de
-l'Internet couvrant 19 éditions (Athènes 2006 — Kyoto 2025). Incluent la
+l'Internet couvrant 20 éditions (d'Athènes en 2006 à Lillestrøm en 2025). Incluent la
 distribution géographique des participants, la représentation régionale dans
 les sessions, les données de financement des bourses de voyage et la
 répartition linguistique des documents préparatoires.
@@ -107,16 +107,38 @@ statistiques d'infrastructure numérique africaine.
 | HTTP Archive (2023) | Consommation web standard | https://httparchive.org |
 | Reuters/IFC (2025) | Capacité data centers africaine | Public |
 | GSMA (2024) | Connectivité mobile africaine | https://www.gsma.com |
+| de Vries (2023) | Empreinte énergétique de l'IA | https://doi.org/10.1016/j.joule.2023.09.004 |
+| You (2025) — Epoch AI | Énergie par requête (≈ 0,3 Wh, GPT-4o) | https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use |
+| Elsworth et al. (2025) — Google | Énergie, eau et CO₂e par requête (mesures en production) | https://arxiv.org/abs/2508.15734 |
+| Ember (2026) | Production électrique africaine (965 TWh en 2024) | https://ember-energy.org/data/yearly-electricity-data/ |
+
+*Les lignes OpenAI (2024), Hugging Face (2024), HTTP Archive (2023) et
+Reuters/IFC (2025) sont les sources de l'article (Karim & Velo, 2025b,
+références [8] à [10] et [16]) ; elles ne sont pas reprises dans la
+bibliographie de la thèse, qui s'appuie sur les mesures plus récentes
+listées à la suite (thèse, § 4.3 et Annexe C.3).*
 
 **Traitement appliqué**
-- Consolidation des données multi-sources par pondération selon la qualité
-  méthodologique des études sources
-- Application d'un facteur correctif de 30% pour les spécificités des
-  infrastructures africaines (pertes réseau, coupures d'électricité,
-  surcoût cloud offshore) calibré à partir des données GSMA et IEA
+- Consolidation des valeurs issues des publications citées par l'article,
+  complétées par les simulations des auteurs
+- Application d'un facteur correctif forfaitaire de 30 % pour les
+  spécificités des infrastructures africaines (pertes réseau, coupures
+  d'électricité, surcoût du cloud hébergé à l'étranger) ; ce facteur est une
+  hypothèse de l'article et n'a pas fait l'objet d'une calibration documentée
 - Modélisation prospective par extrapolation exponentielle :
   E(t) = E₀·e^(αt) avec α ∈ [0,15 — 0,18] selon les scénarios
-- Paramètre initial : E₀ = 174 GWh/jour (Afrique, 2024)
+- Paramètre initial : E₀ = 174 GWh/jour. Cette valeur correspond, dans
+  l'article, à la demande de 600 millions d'utilisateurs **à l'horizon 2030**
+  (600 M × 100 requêtes/jour × 2,9 Wh), et non à la consommation de 2024.
+  La Figure 4.1 la place en 2024 puis lui applique la croissance α : la
+  trajectoire du scénario B est donc une borne haute exploratoire (thèse,
+  § 4.3)
+- Repère de comparaison : production électrique africaine de 965 TWh en
+  2024, soit environ 2 640 GWh/jour (Ember, 2026). La demande de 174 à
+  300 GWh/jour en représenterait de 7 à 11 %. La version 1.0 du code
+  rapportait la demande à un dénominateur non sourcé de 874 GWh/jour,
+  vraisemblablement la demande électrique africaine de 2019 (874 TWh/an)
+  lue comme des GWh/jour ; ce calcul est retiré en version 2.0
 
 **Figures concernées**
 4.1, 4.2
@@ -126,9 +148,11 @@ statistiques d'infrastructure numérique africaine.
 ## 4. Données de simulation UAMINIFU (Chapitre 5)
 
 **Description**
-Les données du cadre UAMINIFU sont issues d'une simulation sur scénarios
+Les courbes de la Figure 5.1 sont issues d'une simulation sur scénarios
 stylisés et non d'une collecte empirique directe. Les paramètres sont calibrés
-sur des hypothèses plausibles fondées sur la littérature existante.
+sur des hypothèses plausibles fondées sur la littérature existante. Le cadre
+UAMINIFU est développé au chapitre 5 de la thèse (document de travail, à
+soumettre).
 
 **Paramètres de calibration**
 
@@ -143,15 +167,29 @@ sur des hypothèses plausibles fondées sur la littérature existante.
 - Scénario A (risque élevé) : ΣSᵢ = 2,2 — ΣRⱼ = 2,7
 - Scénario B (mature) : ΣSᵢ = 3,5 — ΣRⱼ = 0,7
 
+**Instanciation sur sources publiques (thèse, § 5.6.4)**
+Le DTI est par ailleurs instancié pour l'Union des Comores à partir de sources
+exclusivement publiques : GSMA Intelligence, *Digital Africa Index* (données
+2024-2025, période 2025 retenue) pour les variables S2 à S5 et R2 à R5 ;
+ITU, *Global Cybersecurity Index 2024* pour S1 ; loi du 26 juin 2014 portant
+protection des données à caractère personnel pour R1. Un questionnaire
+d'élicitation d'experts (n = 8) complète ces sources. Aucune donnée interne
+d'opérateur n'est mobilisée. Résultat : ΣSᵢ = 2,336, ΣRⱼ = 5,333,
+DTI ≈ −1,73 (zone d'effondrement), résultat robuste à l'analyse de
+sensibilité. Cette instanciation n'est pas tracée dans la Figure 5.1.
+
 **Limite importante**
-Ces données sont simulées et non empiriques. Une calibration sur données
-réelles (incidents de fraude, temps d'arrêt, indicateurs de conformité des
-opérateurs de monnaie mobile africains) constitue une perspective de
-recherche future explicitement identifiée dans la thèse (section 6.6.4).
+Les courbes de la Figure 5.1 sont simulées et non empiriques. Une calibration
+sur séries temporelles réelles (incidents de fraude, temps d'arrêt,
+indicateurs de conformité publiés) constitue une perspective de recherche
+identifiée dans la thèse (Conclusion générale, perspectives de recherche).
 
 **Références**
-- Karim, A. M., & Velo, J. (soumis). UAMINIFU: Modeling Digital Trust.
-  CARI 2026.
+- Karim, A. M., & Velo, J. (2026). UAMINIFU: Modeling digital trust as a
+  systemic and economic variable for AI-driven digital sovereignty. Document
+  de travail intégré à la thèse, Université de Toamasina. À soumettre.
+- GSMA Intelligence. (2025). Digital Africa Index : données 2024-2025.
+- International Telecommunication Union. (2024). Global Cybersecurity Index 2024.
 - GSMA. (2023). State of the Industry Report on Mobile Money.
 - Helbing, D. (2013). Globally networked risks. Nature, 497, 51–59.
 - Williamson, O. E. (1985). The Economic Institutions of Capitalism.
@@ -165,8 +203,12 @@ recherche future explicitement identifiée dans la thèse (section 6.6.4).
 
 **Description**
 Données contextuelles sur le système numérique comorien mobilisées pour
-l'étude de cas de la section 6.4. Toutes issues de sources publiques ou de
-rapports institutionnels librement accessibles.
+l'étude de cas de la section 6.5 de la thèse. Toutes issues de sources
+publiques ou de rapports institutionnels librement accessibles. La seule
+collecte primaire consiste en questionnaires d'élicitation d'experts
+(section 6.5.6 : acteurs comoriens, n = 8 ; section 6.5.7 : praticiens réunis
+à l'ICANN86, n = 9) ; les réponses individuelles ne sont pas publiées dans ce
+dépôt.
 
 **Sources**
 
@@ -178,6 +220,9 @@ rapports institutionnels librement accessibles.
 | GSMA (2023) | Données monnaie mobile Afrique subsaharienne |
 | UNCTAD (2021) | Économie numérique pays en développement |
 | FPF (2025) | Flux de données transfrontaliers en Afrique |
+| GSMA Intelligence (2025) | Digital Africa Index (variables S2–S5, R2–R5 du DTI) |
+| ITU (2024) — GCI 2024 | Indice de cybersécurité (variable S1 du DTI) |
+| Union des Comores (2014) | Loi sur la protection des données (variable R1 du DTI) |
 
 **Estimations analytiques utilisées**
 
@@ -191,9 +236,10 @@ rapports institutionnels librement accessibles.
 **Limite importante**
 Ces valeurs sont des estimations analytiques fondées sur des données
 secondaires et non des mesures empiriques directes calibrées sur le terrain.
-Elles constituent des approximations à valeur illustrative. Une collecte de
-données primaires sur le terrain aux Comores constitue une perspective de
-recherche future prioritaire (section 6.6.4 de la thèse).
+Elles constituent des approximations à valeur illustrative ; les
+questionnaires de la section 6.5.6 en proposent une première confrontation.
+Une collecte de données primaires plus large aux Comores constitue l'Axe 1
+des perspectives de recherche (Conclusion générale, section 3).
 
 **Figures concernées**
 6.3
@@ -221,6 +267,12 @@ empirique externe n'est mobilisée pour ces figures.
 | Rc | 0,62 | Seuil critique de dégradation de T |
 | κ | 7,0 | Vitesse de décroissance exponentielle de T |
 
+**Note sur la Figure 6.2**
+L'intensité d'usage y est définie par A_t = min(1 ; 0,3·λ/10) : elle sature
+dès λ ≈ 34, de sorte que les trajectoires λ = 40 à 100 sont identiques. La
+simulation ne permet donc pas d'établir de façon indépendante le seuil
+indicatif λ ≈ 40 du chapitre 4 (thèse, § 6.4.2).
+
 **Reproductibilité complète**
 L'ensemble des figures 6.1, 6.2 et 6.3 peut être reproduit intégralement
 en exécutant le code disponible dans ce dépôt :
@@ -241,7 +293,7 @@ Ce dépôt adhère aux principes FAIR de gestion des données scientifiques
 
 - **Findability** — dépôt indexé sur GitHub avec DOI Zenodo permanent
 - **Accessibility** — code et figures librement accessibles sous licence MIT
-- **Interoperability** — formats standards : Python, PNG, Markdown
+- **Interoperability** — formats standards : Python, PNG, SVG, Markdown
 - **Reusability** — documentation complète, licence explicite, paramètres
   détaillés permettant la reproduction et l'extension du modèle
 
@@ -252,4 +304,4 @@ https://doi.org/10.1038/sdata.2016.18
 
 ---
 
-*Dernière mise à jour : 2025 — Version 1.0*
+*Dernière mise à jour : 2026 — Version 2.0 (alignée sur le manuscrit final de la thèse)*
