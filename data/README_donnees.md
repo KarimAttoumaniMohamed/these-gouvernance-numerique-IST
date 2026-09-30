@@ -164,8 +164,13 @@ soumettre).
 | Rc (seuil critique) | 0,62 | Seuil de basculement — calibration stylisée |
 
 **Scénarios de simulation**
-- Scénario A (risque élevé) : ΣSᵢ = 2,2 — ΣRⱼ = 2,7
-- Scénario B (mature) : ΣSᵢ = 3,5 — ΣRⱼ = 0,7
+- Scénario A (risque élevé) : ΣSᵢ = 2,2 — ΣRⱼ = 2,7 — R̄ = ΣRⱼ/6 = 0,45 — DTI = −2,69
+- Scénario B (mature) : ΣSᵢ = 3,5 — ΣRⱼ = 0,7 — R̄ = ΣRⱼ/6 = 0,12 — DTI = 3,60
+
+Dans les deux scénarios, R̄ reste sous Rc = 0,62 : la décroissance n'est pas
+activée. Les valeurs de la version initiale du document de travail (−1,06 et
+3,59) reposaient sur des puissances erronées et des facteurs de décroissance
+non dérivés de l'équation (thèse, § 5.4.2).
 
 **Instanciation sur sources publiques (thèse, § 5.6.4)**
 Le DTI est par ailleurs instancié pour l'Union des Comores à partir de sources
