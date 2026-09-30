@@ -9,7 +9,8 @@ confiance à l'ère de l'intelligence artificielle
 
 Auteurs : Karim Attoumani Mohamed & Jérôme Velo
 Université de Toamasina — Faculté des Sciences et Technologies
-Doctorat en Mathématiques, Informatique et Applications, 2025
+Thèse de doctorat en Informatique (Génie informatique)
+ÉAD MIASE — École doctorale SCSD, 2026
 
 Dépôt GitHub :
   https://github.com/karimattoumanimohamed/these-gouvernance-numerique-IST
@@ -27,7 +28,13 @@ Organisation :
   Section 7  — Figures 6.1, 6.2, 6.3 : Modèle G(t)
 
 Point d'entrée : exécuter main() pour générer toutes les figures.
-Les fichiers PNG sont sauvegardés dans le répertoire courant.
+Chaque figure est sauvegardée en PNG (300 dpi) et en SVG (vectoriel)
+dans OUTPUT_DIR (répertoire courant par défaut).
+
+Version 2.0 (2026) : alignée sur le manuscrit final de la thèse. Les calculs
+sont inchangés par rapport à la version 1.0 ; seuls des libellés et
+annotations ont été corrigés (voir README.md, section « Écarts articles →
+thèse »).
 =============================================================================
 """
 
@@ -68,6 +75,12 @@ PALETTE = {
 }
 
 OUTPUT_DIR = "./"   # Modifier pour changer le répertoire de sortie
+
+
+def _save(path):
+    """Sauvegarde la figure courante en PNG (300 dpi) et en SVG (vectoriel)."""
+    plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+    plt.savefig(path[:-4] + ".svg", bbox_inches='tight', facecolor='white')
 
 
 # =============================================================================
@@ -222,7 +235,7 @@ def generate_figure_3_1(save=True):
     plt.tight_layout()
     path = OUTPUT_DIR + "Figure_3_1_DSGM_reseau_participation.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 3.1 sauvegardée : {path}")
     plt.close()
 
@@ -352,7 +365,7 @@ def generate_figure_3_2(save=True):
     plt.tight_layout()
     path = OUTPUT_DIR + "Figure_3_2_participation_scenarios.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 3.2 sauvegardée : {path}")
     plt.close()
 
@@ -390,7 +403,15 @@ def generate_figure_4_1(save=True):
     emissions_B = (10000 + population * requetes * 365 * C_inf_B) / 1e6
     emissions_C = (10000 + population * requetes * 365 * 0.40 * C_inf_B) / 1e6
 
-    seuil = 0.15 * 874  # 15% capacité africaine ≈ 131 GWh/j
+    # NB (v2.0) : E0 = 174 GWh/j correspond, dans l'article, à la demande de
+    # 600 M d'utilisateurs à l'horizon 2030 (600e6 × 100 req. × 2,9 Wh). Le placer
+    # en 2024 puis lui appliquer la croissance α revient à projeter deux fois :
+    # la courbe du scénario B est donc une borne haute exploratoire (thèse, § 4.3).
+    # La v1.0 traçait un « seuil de 15 % de la capacité africaine » calculé sur
+    # 874 GWh/j ; ce dénominateur, sans source, correspond vraisemblablement à la
+    # demande électrique africaine de 2019 (874 TWh/an, Ember) lue par erreur
+    # comme des GWh/jour. Ce seuil est retiré. Repère sourcé : production
+    # électrique africaine 2024 = 965 TWh/an ≈ 2 640 GWh/j (Ember, 2026).
     CA, CB, CC = '#2ca02c', '#d62728', '#1f77b4'
 
     fig = plt.figure(figsize=(16, 11))
@@ -407,13 +428,11 @@ def generate_figure_4_1(save=True):
     ax1.fill_between(annees, energie_C, energie_B, alpha=0.06, color=CC)
     for val, col, ls, ms, lab in [
         (energie_A, CA, '-',  'o', 'Scénario A — Web classique'),
-        (energie_B, CB, '-',  's', 'Scénario B — IA non optimisée'),
+        (energie_B, CB, '-',  's', 'Scénario B — IA non optimisée (borne haute)'),
         (energie_C, CC, '--', '^', 'Scénario C — IA optimisée (−40%)'),
     ]:
         ax1.plot(annees, val, color=col, linewidth=2.2, linestyle=ls,
                  marker=ms, markersize=5, label=lab)
-    ax1.axhline(y=seuil, color='#8B0000', linestyle=':', linewidth=1.5, alpha=0.85,
-                label=f'Seuil critique (15% capacité africaine ≈ {seuil:.0f} GWh/j)')
     ax1.set_title("(A) Consommation énergétique quotidienne\nE(t) = E₀·e^(αt),  α = 16,5%",
                   fontweight='bold')
     ax1.set_ylabel("Énergie (GWh/jour)"); ax1.set_xlabel("Année")
@@ -460,13 +479,13 @@ def generate_figure_4_1(save=True):
     data_table = [
         ['Indicateur', 'Scén. A\n(Web)', 'Scén. B\n(IA std.)', 'Scén. C\n(IA opt.)'],
         ['Énergie/jour (GWh)', f'{energie_A[-1]:.1f}', f'{energie_B[-1]:.0f}', f'{energie_C[-1]:.0f}'],
-        ['% capacité africaine', f'{100*energie_A[-1]/874:.1f}%', f'{100*energie_B[-1]/874:.1f}%', f'{100*energie_C[-1]/874:.1f}%'],
         ['Bande passante/jour (PB)', f'{bp_A[-1]:.0f}', f'{bp_B[-1]:.0f}', f'{bp_C[-1]:.0f}'],
         ['Émissions CO₂e (Mt/an)', '—', f'{emissions_B[-1]:.1f}', f'{emissions_C[-1]:.1f}'],
         ['Ratio énergie vs Web', '×1', f'×{energie_B[-1]/energie_A[-1]:.0f}', f'×{energie_C[-1]/energie_A[-1]:.0f}'],
     ]
     table = ax4.table(cellText=data_table[1:], colLabels=data_table[0],
-                      cellLoc='center', loc='center', bbox=[0.0, 0.05, 1.0, 0.90])
+                      cellLoc='center', loc='center', bbox=[0.0, 0.05, 1.0, 0.90],
+                      colWidths=[0.37, 0.21, 0.21, 0.21])
     table.auto_set_font_size(False); table.set_fontsize(8.5)
     for (row, col), cell in table.get_celld().items():
         if row == 0:
@@ -479,14 +498,14 @@ def generate_figure_4_1(save=True):
                   fontweight='bold', fontsize=9, pad=10)
 
     fig.text(0.5, -0.01,
-        "© 2025 IEEE. Reproduit avec permission de : Karim, A. M., & Velo, J. (2025b). "
+        "© 2025 IEEE. Adapté avec permission de : Karim, A. M., & Velo, J. (2025b). "
         "Towards Sustainable Internet Governance. ICECER 2025. DOI : 10.1109/ICECER65523.2025.11401095.",
         ha='center', fontsize=7, color='#555555', style='italic')
 
     plt.tight_layout()
     path = OUTPUT_DIR + "Figure_4_1_energie_Afrique_2030.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 4.1 sauvegardée : {path}")
     plt.close()
 
@@ -503,7 +522,7 @@ def generate_figure_4_2(save=True):
     lambda_values = np.linspace(5, 100, 500)
     lambda_disc   = np.array([5, 10, 20, 40, 60, 80, 100])
     Q_base, E_r, D_r = 100, 5e-3, 3.5e-3
-    lambda_c = 40
+    lambda_c = 40   # seuil indicatif posé par l'article, non dérivé d'une mesure de capacité
 
     Q_prime   = Q_base * lambda_values
     energy_pu = E_r * Q_prime
@@ -523,16 +542,16 @@ def generate_figure_4_2(save=True):
     # Panneau A
     ax1 = fig.add_subplot(gs[0, 0])
     ax1.axvspan(0, lambda_c, alpha=0.07, color='#2ca02c',
-                label='Zone capacité africaine soutenable (λ < λ_c)')
+                label='En deçà du seuil indicatif (λ < 40)')
     ax1.axvspan(lambda_c, 100, alpha=0.07, color=C_danger,
-                label='Zone de dépassement capacitaire (λ > λ_c)')
+                label='Au-delà du seuil indicatif (λ ≥ 40)')
     ax1.plot(lambda_values, Q_prime, color=C_main, linewidth=2.8,
              label="Q'(t) = Q(t) · λ")
     ax1.scatter(lambda_disc, Q_base * lambda_disc, color=C_main, s=55, zorder=5)
     ax1.axvline(x=lambda_c, color=C_danger, linestyle='--', linewidth=2.0,
-                label=f'Seuil critique λ_c = {lambda_c}')
+                label=f'Seuil indicatif λ ≈ {lambda_c} (hypothèse de l\'article)')
     ax1.axhline(y=Q_base * lambda_c, color=C_danger, linestyle=':', linewidth=1.3, alpha=0.7)
-    ax1.annotate(f'λ_c = {lambda_c}\nCapacité africaine\nsystématiquement\ndépassée',
+    ax1.annotate(f'λ ≈ {lambda_c} : seuil indicatif\nretenu par l\'article,\nnon dérivé d\'une\nmesure de capacité',
                  xy=(lambda_c, Q_base * lambda_c), xytext=(52, 2800),
                  fontsize=7.5, color='#8B0000',
                  arrowprops=dict(arrowstyle='->', color='#8B0000', lw=1.0),
@@ -575,10 +594,10 @@ def generate_figure_4_2(save=True):
         qp = Q_base * lam
         rows.append([f'λ = {lam}', f'{qp:,}', f'{E_r*qp:.2f}',
                      f'{D_r*qp:.1f}',
-                     '⚠ CRITIQUE' if lam >= lambda_c else '✓ Soutenable'])
+                     '⚠ Au-delà' if lam >= lambda_c else '✓ En deçà'])
     table = ax3.table(
         cellText=rows,
-        colLabels=["λ", "Q' (req./j)", "Énergie\n(kWh)", "Bande p.\n(GB)", "Statut"],
+        colLabels=["λ", "Q' (req./j)", "Énergie\n(kWh)", "Bande p.\n(GB)", "Seuil\nindicatif"],
         cellLoc='center', loc='center', bbox=[0.0, 0.05, 1.0, 0.90])
     table.auto_set_font_size(False); table.set_fontsize(8.0)
     for (row, col), cell in table.get_celld().items():
@@ -596,14 +615,14 @@ def generate_figure_4_2(save=True):
                   fontweight='bold', fontsize=9, pad=10)
 
     fig.text(0.5, -0.04,
-        "© 2025 IEEE. Reproduit avec permission de : Karim, A. M., & Velo, J. (2025b). "
+        "© 2025 IEEE. Adapté avec permission de : Karim, A. M., & Velo, J. (2025b). "
         "Towards Sustainable Internet Governance. ICECER 2025. DOI : 10.1109/ICECER65523.2025.11401095.",
         ha='center', fontsize=7, color='#555555', style='italic')
 
     plt.tight_layout()
     path = OUTPUT_DIR + "Figure_4_2_lambda_orchestration.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 4.2 sauvegardée : {path}")
     plt.close()
 
@@ -611,10 +630,10 @@ def generate_figure_4_2(save=True):
 # =============================================================================
 # A.6 — FIGURE 5.1 : DÉGRADATION NON LINÉAIRE DE LA CONFIANCE — UAMINIFU
 #
-# Équations (Karim & Velo, soumis CARI 2026) :
+# Équations (cadre UAMINIFU, chapitre 5 de la thèse) :
 #   T  = α·(ΣSᵢ)^γ − β·(ΣRⱼ)^δ − Σλⱼₖ(Rⱼ·Rₖ)   [DTI]
 #   T' = T · e^(−κ · max(0, R − Rc))               [décroissance]
-#   Ctx = C₀ + θ/T^η                                [coût transaction]
+#   Ctx = C₀ + ω/T^η                                [coût transaction]
 # Paramètres calibrés : γ=1.15, δ=1.55, κ=7.0, Rc=0.62
 # =============================================================================
 
@@ -642,9 +661,9 @@ def generate_figure_5_1(save=True):
     T_uaminifu  = T_uam_raw * np.exp(-kappa * np.maximum(0.0, R_values - Rc))
 
     # Coûts de transaction
-    C0, theta_eco, eta_eco = 0.5, 0.8, 1.4
+    C0, omega_eco, eta_eco = 0.5, 0.8, 1.4
     T_pos = np.where(T_uaminifu > 0.05, T_uaminifu, np.nan)
-    Ctx   = C0 + theta_eco / (T_pos**eta_eco)
+    Ctx   = C0 + omega_eco / (T_pos**eta_eco)
 
     CL, CN, CU = '#1f77b4', '#ff7f0e', '#2ca02c'
 
@@ -698,7 +717,7 @@ def generate_figure_5_1(save=True):
     ax2.axhline(y=0, color='black', linewidth=0.8, alpha=0.5, linestyle=':')
     ax2.axvline(x=Rc, color='#d62728', linewidth=2.0, linestyle='--', label=f'Rc = {Rc}')
     ax2.annotate(f'T\' = T·e^(−κ·(R−Rc)₊)\nκ = {kappa}, Rc = {Rc}',
-                 xy=(Rc+0.05, TU_z[R_z >= Rc][2]), xytext=(0.85, 2.5),
+                 xy=(Rc+0.05, TU_z[R_z >= Rc][2]), xytext=(0.80, 1.25),
                  fontsize=7.5, color='#1a5e20',
                  arrowprops=dict(arrowstyle='->', color='#1a5e20', lw=0.9),
                  bbox=dict(boxstyle='round,pad=0.3', facecolor='#e8f8e8', alpha=0.90))
@@ -718,7 +737,7 @@ def generate_figure_5_1(save=True):
                 label=f'Rc = {Rc}')
     ax3_twin.plot(R_values[~np.isnan(Ctx)], Ctx[~np.isnan(Ctx)],
                   color='#9467bd', linewidth=2.5, linestyle='--',
-                  label='Ctx = C₀ + θ/T^η (axe droit)')
+                  label='Ctx = C₀ + ω/T^η (axe droit)')
     ax3_twin.set_ylabel("Coût de transaction Ctx", color='#9467bd', fontsize=8)
     ax3_twin.tick_params(axis='y', labelcolor='#9467bd', labelsize=8)
     ax3_twin.set_ylim(0, 15)
@@ -726,16 +745,20 @@ def generate_figure_5_1(save=True):
                  xy=(0.55, 0.5), xytext=(1.2, 2.8), fontsize=7.5, color='#4a235a',
                  arrowprops=dict(arrowstyle='->', color='#4a235a', lw=0.9),
                  bbox=dict(boxstyle='round,pad=0.3', facecolor='#f5eef8', alpha=0.90))
-    for label, (R_pt, T_pt, color) in {
-        'Scén. A\n(DTI = −1,06)': (2.7, -1.06, '#d62728'),
-        'Scén. B\n(DTI = 3,59)':  (0.70, 3.59, '#2ca02c'),
-    }.items():
-        ax3.scatter([R_pt], [T_pt], color=color, s=80, zorder=6)
-        ax3.annotate(label, xy=(R_pt, T_pt), xytext=(R_pt-0.6, T_pt-0.6),
-                     fontsize=7, color=color,
-                     arrowprops=dict(arrowstyle='->', color=color, lw=0.8),
-                     bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.85))
-    ax3.set_title(f"(C) DTI et coûts de transaction Ctx\nCtx = C₀ + θ/T^η  (C₀={C0}, θ={theta_eco}, η={eta_eco})",
+    # NB (v2.0) : la v1.0 plaçait ici les scénarios A (DTI = −1,06) et B (3,59)
+    # comme des points du panneau. Ces DTI sont calculés au § 5.4.2 avec leurs
+    # propres ΣSᵢ, termes d'interaction et facteurs de décroissance (α = β = 1) ;
+    # ils n'appartiennent pas à cette coupe stylisée (ΣSᵢ = 2,8 ; α = 0,55 ;
+    # β = 0,45). Ils sont désormais rappelés dans un encadré, avec les valeurs
+    # recalculées (exposants exacts) et l'instanciation publique des Comores.
+    ax3.text(1.30, -1.35,
+             "DTI calculés hors de cette coupe :\n"
+             "Scén. A (§ 5.4.2) : −1,21\n"
+             "Scén. B (§ 5.4.2) : 3,35\n"
+             "Comores (§ 5.6.4) : −1,73",
+             fontsize=7, color='#333333', va='top',
+             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='#999999', alpha=0.9))
+    ax3.set_title(f"(C) DTI et coûts de transaction Ctx\nCtx = C₀ + ω/T^η  (C₀={C0}, ω={omega_eco}, η={eta_eco})",
                   fontweight='bold')
     ax3.set_xlabel("Risque agrégé R")
     ax3.set_ylabel("DTI", color=CU, fontsize=8)
@@ -748,14 +771,14 @@ def generate_figure_5_1(save=True):
     ax3.tick_params(labelsize=8)
 
     fig.text(0.5, -0.04,
-        "Source : Karim, A. M., & Velo, J. (soumis). UAMINIFU: Modeling Digital Trust. "
-        "CARI 2026. Reproduit du manuscrit soumis avec l'accord des auteurs.",
+        "Source : cadre UAMINIFU, développé dans la thèse (chapitre 5) ; document de travail, "
+        "Karim, A. M., & Velo, J. (2026), à soumettre.",
         ha='center', fontsize=7, color='#555555', style='italic')
 
     plt.tight_layout()
     path = OUTPUT_DIR + "Figure_5_1_UAMINIFU_trust_degradation.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 5.1 sauvegardée : {path}")
     plt.close()
 
@@ -869,7 +892,7 @@ def generate_figure_6_1(save=True):
     axes['S'].axhline(y=0.40, color='orange', linestyle=':', linewidth=1.3,
                       label='Seuil critique S_c = 0,40')
     axes['G_compare'].axhspan(0.3, 0.7, alpha=0.08, color='green',
-                               label='Zone de gouvernance stable')
+                               label='Bande indicative 0,3 < G < 0,7')
 
     for var, ax in axes.items():
         if var == 'G_compare':
@@ -896,7 +919,7 @@ def generate_figure_6_1(save=True):
     plt.tight_layout(rect=[0,0,1,0.97])
     path = OUTPUT_DIR + "Figure_6_1_quatre_scenarios.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 6.1 sauvegardée : {path}")
     plt.close()
 
@@ -906,7 +929,8 @@ def generate_figure_6_2(save=True):
     params = ModelParameters(); T = 20
     lambda_values = [10, 25, 40, 60, 80, 100]
     base_A = 0.3
-    colors = plt.cm.RdYlGn_r(np.linspace(0.1, 0.9, len(lambda_values)))
+    colors = ['#1a9850', '#91cf60', '#fdae61', '#f46d43', '#d73027', '#7f0000']
+    styles = ['-', '-', '-', '--', '-.', ':']   # λ ≥ 34 : A_t = 1, courbes confondues
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 5))
     fig.suptitle(
@@ -918,36 +942,36 @@ def generate_figure_6_2(save=True):
         A_eff = min(1.0, base_A * (lam/10))
         sc = ScenarioConfig(f"λ = {lam}", 0.35, 0.42, 0.45,
                             [A_eff]*T, [0.75]*T,
-                            False, False, False, colors[i], '-')
+                            False, False, False, colors[i], styles[i])
         hist = run_simulation_G(sc, params, T)
         periods = list(range(T))
-        axes[0].plot(periods, hist['S'], color=colors[i], linewidth=1.8, label=f"λ = {lam}")
-        axes[1].plot(periods, hist['G'], color=colors[i], linewidth=1.8, label=f"λ = {lam}")
+        lab = f"λ = {lam}" + ("  (A_t = 1)" if A_eff >= 1.0 else f"  (A_t = {A_eff:.2f})".replace('.', ','))
+        axes[0].plot(periods, hist['S'], color=colors[i], linestyle=styles[i], linewidth=1.9, label=lab)
+        axes[1].plot(periods, hist['G'], color=colors[i], linestyle=styles[i], linewidth=1.9, label=lab)
 
+    axes[0].axhline(y=0.40, color='red', linestyle='--', linewidth=1.3,
+                    alpha=0.8, label='Seuil critique S_c = 0,40')
     for ax, title, ylabel in zip(axes,
         ["Trajectoire de S(t) selon λ", "Trajectoire de G(t) selon λ"],
         ["Soutenabilité S(t)", "Gouvernance G(t)"]):
-        ax.axhline(y=0.40, color='red', linestyle='--', linewidth=1.3,
-                   alpha=0.8, label='Seuil critique S_c = 0,40')
         ax.set_title(title, fontsize=10, fontweight='bold')
         ax.set_xlabel("Période (t)", fontsize=9); ax.set_ylabel(ylabel, fontsize=9)
-        ax.legend(fontsize=7.5, loc='lower left')
+        ax.legend(fontsize=7.5, loc='upper right')
         ax.grid(True, alpha=0.3); ax.tick_params(labelsize=8); ax.set_xlim(0, T-1)
 
-    axes[0].axvline(x=5, color='darkred', linestyle=':', linewidth=1.0, alpha=0.5)
-    axes[0].annotate('λ_c ≈ 40\n(seuil critique\nafricain)',
-                     xy=(5, 0.40), xytext=(8, 0.55), fontsize=7, color='darkred',
-                     arrowprops=dict(arrowstyle='->', color='darkred', lw=0.8))
+    # NB (v2.0) : A_t = min(1, 0,3·λ/10) sature dès λ ≈ 34 ; les trajectoires
+    # λ = 40 à 100 sont donc identiques. La v1.0 annotait ici un « λ_c ≈ 40 (seuil
+    # critique africain) » que la simulation n'établit pas (thèse, § 6.4.2).
 
     fig.text(0.5, -0.04,
         "Source : simulation du modèle dynamique G(t), code Python Annexe A. "
-        "Paramètres : S₀=0,42, I₀=0,35, T₀=0,45, X_t=0,75.",
+        "Paramètres : S₀=0,42, I₀=0,35, T₀=0,45, X_t=0,75 ; A_t = min(1 ; 0,3·λ/10), saturé pour λ ≥ 34 (courbes confondues).",
         ha='center', fontsize=7.5, color='#555555', style='italic')
 
     plt.tight_layout()
     path = OUTPUT_DIR + "Figure_6_2_sensibilite_lambda.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 6.2 sauvegardée : {path}")
     plt.close()
 
@@ -987,8 +1011,6 @@ def generate_figure_6_3(save=True):
         if var == 'S':
             ax.axhline(y=params.S_critical, color='orange', linestyle=':',
                        linewidth=1.2, label=f'Seuil S_c = {params.S_critical}')
-            ax.axhline(y=0.33, color='gray', linestyle=':', alpha=0.5,
-                       linewidth=1.0, label='S₀ initial')
         ax.set_title(var_labels[var], fontsize=9, fontweight='bold')
         ax.set_xlabel("Période (t)", fontsize=8); ax.set_ylabel(var, fontsize=8)
         ax.legend(fontsize=7, loc='best'); ax.grid(True, alpha=0.3)
@@ -1014,13 +1036,13 @@ def generate_figure_6_3(save=True):
 
     fig.text(0.5, -0.02,
         "Source : simulation du modèle dynamique G(t), code Python Annexe A. "
-        "Conditions initiales estimées — ITU, World Bank, GSMA (2023-2024).",
+        "Conditions initiales : I₀=0,33, S₀=0,40, T₀=0,45 (Union des Comores, estimations analytiques).",
         ha='center', fontsize=7.5, color='#555555', style='italic')
 
     plt.tight_layout()
     path = OUTPUT_DIR + "Figure_6_3_cas_Comores.png"
     if save:
-        plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+        _save(path)
         print(f"  Figure 6.3 sauvegardée : {path}")
     plt.close()
 
@@ -1033,7 +1055,7 @@ def main():
     print("=" * 65)
     print("ANNEXE A — Génération de toutes les figures de la thèse")
     print("Karim Attoumani Mohamed & Jérôme Velo")
-    print("Université de Toamasina, 2025")
+    print("Université de Toamasina, 2026")
     print("=" * 65)
 
     print("\n── Chapitre 3 ──────────────────────────────────────────────")
@@ -1054,7 +1076,7 @@ def main():
 
     print("\n" + "=" * 65)
     print("8 figures générées avec succès.")
-    print("Fichiers PNG (300 dpi) disponibles dans :", OUTPUT_DIR)
+    print("Fichiers PNG (300 dpi) et SVG disponibles dans :", OUTPUT_DIR)
     print("=" * 65)
 
 
