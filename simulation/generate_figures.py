@@ -3,9 +3,8 @@
 =============================================================================
 generate_figures.py — Codes Python de génération des figures de la thèse
 
-Thèse : Vers une gouvernance inclusive, durable et fiable du numérique :
-modélisation systémique de l'inclusion, de la soutenabilité et de la
-confiance à l'ère de l'intelligence artificielle
+Thèse : Gouvernance du numérique à l'ère de l'IA : modélisation systémique
+de l'inclusion, de la soutenabilité et de la confiance
 
 Auteurs : Karim Attoumani Mohamed & Jérôme Velo
 Université de Toamasina — Faculté des Sciences et Technologies
