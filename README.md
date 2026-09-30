@@ -6,9 +6,8 @@
 
 > **Dépôt de code associé à la thèse de doctorat :**
 >
-> *Vers une gouvernance inclusive, durable et fiable du numérique :
-> modélisation systémique de l'inclusion, de la soutenabilité et de la
-> confiance à l'ère de l'intelligence artificielle*
+> *Gouvernance du numérique à l'ère de l'IA : modélisation systémique
+> de l'inclusion, de la soutenabilité et de la confiance*
 >
 > **Karim Attoumani Mohamed** & **Jérôme Velo**
 > Université de Toamasina — Faculté des Sciences et Technologies
@@ -319,10 +318,9 @@ Si vous utilisez ce code ou ces résultats dans vos travaux, merci de citer :
 ```bibtex
 @phdthesis{karim2026these,
   author  = {Karim Attoumani Mohamed},
-  title   = {Vers une gouvernance inclusive, durable et fiable du
-             num{\'e}rique : mod{\'e}lisation syst{\'e}mique de
-             l'inclusion, de la soutenabilit{\'e} et de la confiance
-             {\`a} l'{\`e}re de l'intelligence artificielle},
+  title   = {Gouvernance du num{\'e}rique {\`a} l'{\`e}re de l'{IA} :
+             mod{\'e}lisation syst{\'e}mique de l'inclusion, de la
+             soutenabilit{\'e} et de la confiance},
   school  = {Universit{\'e} de Toamasina},
   year    = {2026},
   type    = {Th{\`e}se de doctorat en Informatique
