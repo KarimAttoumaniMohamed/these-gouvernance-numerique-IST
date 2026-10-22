@@ -1,5 +1,6 @@
+# Versions minimales ; les résultats de référence (dossier resultats/) ont été produits avec
+# Python 3.13, numpy 2.5.3, matplotlib 3.11.2, pandas 3.0.5 et networkx 3.6.1.
 numpy>=1.24
 matplotlib>=3.7
-networkx>=3.1
 pandas>=2.0
-scipy>=1.10
+networkx>=3.1
