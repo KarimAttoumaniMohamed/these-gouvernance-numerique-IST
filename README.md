@@ -277,7 +277,7 @@ la section [Écarts articles → thèse](#écarts-articles--thèse-version-20).
 
 ## Écarts articles → thèse (versions 2.0 et 3.0)
 
-La version 3.0 (octobre 2026) accompagne la révision du manuscrit : DTI révisé (borné et monotone), projections énergétiques recalculées sans double projection pour l'année 2030, X₀ = 0,80 pour les Comores, analyses de robustesse et figures sous la numérotation de la thèse. Les calculs correspondants sont dans les scripts ajoutés listés plus haut.
+La version 3.0 (octobre 2026) accompagne la révision du manuscrit : DTI révisé (borné et monotone), projections énergétiques recalculées sans double projection pour l'année 2030, X₀ = 0,80 pour les Comores, analyses de robustesse et figures sous la numérotation de la thèse. Les calculs correspondants sont dans les scripts ajoutés listés plus haut. La version 3.0.1 harmonise les libellés de la Figure 5.1 (script et image) avec le manuscrit ; les résultats numériques sont inchangés.
 
 
 La version 1.0 de ce dépôt (2025) reprenait les résultats des articles. La
@@ -328,6 +328,7 @@ https://doi.org/10.1038/sdata.2016.18
 |---|---|
 | Toutes versions (DOI de concept, renvoie à la dernière version) | [10.5281/zenodo.20242474](https://doi.org/10.5281/zenodo.20242474) |
 | v3.0 — version révisée de la thèse (octobre 2026) | [10.5281/zenodo.23557473](https://doi.org/10.5281/zenodo.23557473) |
+| v3.0.1 — libellés de la Figure 5.1 harmonisés avec le manuscrit ; version citée dans la thèse | [10.5281/zenodo.23562079](https://doi.org/10.5281/zenodo.23562079) |
 | v2.0 — version de la thèse (2026) | [10.5281/zenodo.23063106](https://doi.org/10.5281/zenodo.23063106) |
 | v1.0 — état des articles publiés (2025) | [10.5281/zenodo.20242475](https://doi.org/10.5281/zenodo.20242475) |
 
@@ -368,11 +369,11 @@ Si vous utilisez ce code ou ces résultats dans vos travaux, merci de citer :
 @software{karim2026code,
   author    = {Karim Attoumani Mohamed and Jérôme Velo},
   title     = {these-gouvernance-numerique-IST : code source et figures
-               de la th{\`e}se (version 3.0)},
+               de la th{\`e}se (version 3.0.1)},
   year      = {2026},
   publisher = {Zenodo},
-  version   = {v3.0},
-  doi       = {10.5281/zenodo.23557473}
+  version   = {v3.0.1},
+  doi       = {10.5281/zenodo.23562079}
 }
 
 @unpublished{karim2026uaminifu,
@@ -411,4 +412,4 @@ zjvelo@gmail.com
 
 ---
 
-*Dépôt créé en 2025 — Version 3.0 (octobre 2026), alignée sur le manuscrit révisé de la thèse*
+*Dépôt créé en 2025 — Version 3.0.1 (octobre 2026), alignée sur le manuscrit révisé de la thèse*
