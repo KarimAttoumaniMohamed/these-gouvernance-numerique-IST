@@ -116,7 +116,7 @@ statistiques d'infrastructure numérique africaine.
 Reuters/IFC (2025) sont les sources de l'article (Karim & Velo, 2025b,
 références [8] à [10] et [16]) ; elles ne sont pas reprises dans la
 bibliographie de la thèse, qui s'appuie sur les mesures plus récentes
-listées à la suite (thèse, § 4.3 et Annexe C.3).*
+listées à la suite (thèse, § 4.2).*
 
 **Traitement appliqué**
 - Consolidation des valeurs issues des publications citées par l'article,
@@ -125,20 +125,15 @@ listées à la suite (thèse, § 4.3 et Annexe C.3).*
   spécificités des infrastructures africaines (pertes réseau, coupures
   d'électricité, surcoût du cloud hébergé à l'étranger) ; ce facteur est une
   hypothèse de l'article et n'a pas fait l'objet d'une calibration documentée
-- Modélisation prospective par extrapolation exponentielle :
-  E(t) = E₀·e^(αt) avec α ∈ [0,15 — 0,18] selon les scénarios
-- Paramètre initial : E₀ = 174 GWh/jour. Cette valeur correspond, dans
-  l'article, à la demande de 600 millions d'utilisateurs **à l'horizon 2030**
-  (600 M × 100 requêtes/jour × 2,9 Wh), et non à la consommation de 2024.
-  La Figure 4.1 la place en 2024 puis lui applique la croissance α : la
-  trajectoire du scénario B est donc une borne haute exploratoire (thèse,
-  § 4.3)
+- Projections de la thèse révisée (script `simulation/energie.py`) : demande
+  en 2030 = 600 millions d'utilisateurs × taux d'adoption × requêtes par jour ×
+  consommation par requête, sous deux hypothèses : haute (2,9 à 5 Wh par
+  requête, estimations publiées en 2023 et retenues par l'article) et basse
+  (0,24 à 0,3 Wh, mesures publiées en 2025). La version 2.0 appliquait une
+  croissance annuelle à une valeur initiale de 174 GWh/jour qui correspondait
+  déjà à 2030 (double projection) ; ce calcul n'est plus utilisé
 - Repère de comparaison : production électrique africaine de 965 TWh en
-  2024, soit environ 2 640 GWh/jour (Ember, 2026). La demande de 174 à
-  300 GWh/jour en représenterait de 7 à 11 %. La version 1.0 du code
-  rapportait la demande à un dénominateur non sourcé de 874 GWh/jour,
-  vraisemblablement la demande électrique africaine de 2019 (874 TWh/an)
-  lue comme des GWh/jour ; ce calcul est retiré en version 2.0
+  2024, soit environ 2 640 GWh/jour (Ember, 2026)
 
 **Figures concernées**
 4.1, 4.2
@@ -163,28 +158,30 @@ soumettre).
 | κ (vitesse décroissance) | 7,0 | Décroissance rapide post-seuil — GSMA (2023) |
 | Rc (seuil critique) | 0,62 | Seuil de basculement — calibration stylisée |
 
+**Formulation révisée (thèse, § 5.2 et 5.3)**
+Le DTI est calculé sur les moyennes des facteurs (S̄ = ΣSᵢ/n, R̄ = ΣRⱼ/m), le terme
+de risque est (R̄^δ + Σλⱼₖ·Rⱼ·Rₖ)/(1 + Σλⱼₖ), et la décroissance tire le score vers le
+plancher −1 : DTI = −1 + (1 + T)·e^(−κ(R̄ − Rc)⁺). Le DTI est ainsi borné dans [−1 ; 1]
+et décroissant en chaque facteur de risque (script `simulation/dti.py`).
+
 **Scénarios de simulation**
-- Scénario A (risque élevé) : ΣSᵢ = 2,2 — ΣRⱼ = 2,7 — R̄ = ΣRⱼ/6 = 0,45 — DTI = −2,69
-- Scénario B (mature) : ΣSᵢ = 3,5 — ΣRⱼ = 0,7 — R̄ = ΣRⱼ/6 = 0,12 — DTI = 3,60
+- Scénario A (risque élevé) : Sᵢ = 0,50 ; 0,75 ; 0,25 ; 0,50 ; 0,25 (S̄ = 0,45) — Rⱼ = 0,75 ; 0,75 ; 0,50 ; 0,75 ; 0,50 ; 1,00 (R̄ = 0,708) — DTI = −0,536
+- Scénario B (mature) : Sᵢ = 0,75 ; 0,75 ; 0,50 ; 0,75 ; 0,75 (S̄ = 0,70) — Rⱼ = 0,25 ; 0 ; 0,25 ; 0 ; 0,25 ; 0 (R̄ = 0,125) — DTI = 0,630
+- Interactions : mêmes paires et coefficients que pour les Comores (tableau 5.III, Σλ = 0,75)
 
-Dans les deux scénarios, R̄ reste sous Rc = 0,62 : la décroissance n'est pas
-activée. Les valeurs de la version initiale du document de travail (−1,06 et
-3,59) reposaient sur des puissances erronées et des facteurs de décroissance
-non dérivés de l'équation (thèse, § 5.4.2).
-
-**Instanciation sur sources publiques (thèse, § 5.6.4)**
+**Instanciation sur sources publiques (thèse, § 5.6)**
 Le DTI est par ailleurs instancié pour l'Union des Comores à partir de sources
 exclusivement publiques : GSMA Intelligence, *Digital Africa Index* (données
 2024-2025, période 2025 retenue) pour les variables S2 à S5 et R2 à R5 ;
 ITU, *Global Cybersecurity Index 2024* pour S1 ; loi du 26 juin 2014 portant
 protection des données à caractère personnel pour R1. Un questionnaire
 d'élicitation d'experts (n = 8) complète ces sources. Aucune donnée interne
-d'opérateur n'est mobilisée. Résultat : ΣSᵢ = 2,336, ΣRⱼ = 5,333,
-DTI ≈ −1,73 (zone d'effondrement), résultat robuste à l'analyse de
-sensibilité. Cette instanciation n'est pas tracée dans la Figure 5.1.
+d'opérateur n'est mobilisée. Résultat : S̄ = 0,467, R̄ = 0,889,
+DTI = −0,908 (zone d'effondrement), résultat robuste à l'analyse de
+sensibilité (−0,94 à −0,87). Ce point figure dans le panneau (a) de la Figure 5.1.
 
 **Limite importante**
-Les courbes de la Figure 5.1 sont simulées et non empiriques. Une calibration
+Les courbes de la Figure 5.1 sont calculées et non empiriques. Une calibration
 sur séries temporelles réelles (incidents de fraude, temps d'arrêt,
 indicateurs de conformité publiés) constitue une perspective de recherche
 identifiée dans la thèse (Conclusion générale, perspectives de recherche).
@@ -208,10 +205,10 @@ identifiée dans la thèse (Conclusion générale, perspectives de recherche).
 
 **Description**
 Données contextuelles sur le système numérique comorien mobilisées pour
-l'étude de cas de la section 6.5 de la thèse. Toutes issues de sources
+l'étude de cas de la section 6.3 de la thèse. Toutes issues de sources
 publiques ou de rapports institutionnels librement accessibles. La seule
 collecte primaire consiste en questionnaires d'élicitation d'experts
-(section 6.5.6 : acteurs comoriens, n = 8 ; section 6.5.7 : praticiens réunis
+(section 6.3.6 : acteurs comoriens, n = 8, et praticiens réunis
 à l'ICANN86, n = 9) ; les réponses individuelles ne sont pas publiées dans ce
 dépôt.
 
@@ -224,7 +221,7 @@ dépôt.
 | Smart Africa Alliance (2024) | Stratégies numériques africaines |
 | GSMA (2023) | Données monnaie mobile Afrique subsaharienne |
 | UNCTAD (2021) | Économie numérique pays en développement |
-| FPF (2025) | Flux de données transfrontaliers en Afrique |
+| IFC et GSMA (TechAfrica News, 2026) | Part des données africaines hébergées hors du continent (X₀) |
 | GSMA Intelligence (2025) | Digital Africa Index (variables S2–S5, R2–R5 du DTI) |
 | ITU (2024) — GCI 2024 | Indice de cybersécurité (variable S1 du DTI) |
 | Union des Comores (2014) | Loi sur la protection des données (variable R1 du DTI) |
@@ -233,28 +230,28 @@ dépôt.
 
 | Variable | Valeur estimée | Source principale |
 |----------|---------------|-------------------|
-| I₀ (inclusion initiale) | 0,33 | ITU (2024) — taux pénétration Internet |
+| I₀ (inclusion initiale) | 0,33 | UIT/Banque mondiale (2024) — 32,5 % de la population utilise Internet (arrondi) |
 | S₀ (soutenabilité initiale) | 0,40 | IEA + données énergie Comores |
 | T₀ (confiance initiale) | 0,45 | GSMA (2023) — adoption monnaie mobile |
-| X_t (dépendance externe) | 0,78 | FPF (2025) — 85% données hors continent |
+| X₀ (dépendance externe) | 0,80 | Borne basse des estimations de la part des données africaines hébergées hors du continent (plus de 80 % selon IFC et GSMA ; 85 % selon Karim & Velo, 2025b) |
 
 **Limite importante**
 Ces valeurs sont des estimations analytiques fondées sur des données
 secondaires et non des mesures empiriques directes calibrées sur le terrain.
 Elles constituent des approximations à valeur illustrative ; les
-questionnaires de la section 6.5.6 en proposent une première confrontation.
+questionnaires de la section 6.3.6 en proposent une première confrontation.
 Une collecte de données primaires plus large aux Comores constitue l'Axe 1
 des perspectives de recherche (Conclusion générale, section 3).
 
 **Figures concernées**
-6.3
+6.4
 
 ---
 
 ## 6. Données de simulation du modèle G(t) (Chapitre 6)
 
 **Description**
-Les données des Figures 6.1 et 6.2 sont entièrement simulées à partir du
+Les données des Figures 6.2 et 6.3 sont entièrement simulées à partir du
 modèle dynamique G(t) formalisé au chapitre 2 de la thèse. Aucune donnée
 empirique externe n'est mobilisée pour ces figures.
 
@@ -272,22 +269,23 @@ empirique externe n'est mobilisée pour ces figures.
 | Rc | 0,62 | Seuil critique de dégradation de T |
 | κ | 7,0 | Vitesse de décroissance exponentielle de T |
 
-**Note sur la Figure 6.2**
+**Note sur la Figure 6.3**
 L'intensité d'usage y est définie par A_t = min(1 ; 0,3·λ/10) : elle sature
 dès λ ≈ 34, de sorte que les trajectoires λ = 40 à 100 sont identiques. La
 simulation ne permet donc pas d'établir de façon indépendante le seuil
-indicatif λ ≈ 40 du chapitre 4 (thèse, § 6.4.2).
+indicatif λ ≈ 40 du chapitre 4 (thèse, § 6.2.2).
 
 **Reproductibilité complète**
-L'ensemble des figures 6.1, 6.2 et 6.3 peut être reproduit intégralement
-en exécutant le code disponible dans ce dépôt :
+L'ensemble des figures 6.1 à 6.4 peut être reproduit avec les scripts
+du dossier `simulation/` (correspondance dans le README principal) :
 
 ```bash
-python simulation/generate_figures.py
+cd simulation
+python generate_figures.py ; python figure_6_1_diagramme_causal.py ; python figure_6_4_comores.py
 ```
 
 **Figures concernées**
-6.1, 6.2, 6.3
+6.1, 6.2, 6.3, 6.4
 
 ---
 
