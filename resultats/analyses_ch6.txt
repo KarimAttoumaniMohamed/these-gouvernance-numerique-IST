@@ -1,0 +1,8 @@
+1. Un à la fois : 42/42 simulations conservent les trois propriétés
+2. Monte-Carlo simultané (N=2000) : P1 0.997 P2 0.983 P3 1.000 ; les trois : 0.980
+   échecs P1 6, P2 35 (dont expliqués par la condition (iii) : 35), P3 0
+3. Variante couplée, grille : 49/49
+   Variante couplée + Monte-Carlo (N=2000) : 0.973
+4. Leviers (scénario 4) : aucun -0.012 ; π seul +0.164 ; ν seul +0.564 ; M seul +0.536 ; ν+M +0.730 ; π+ν+M +0.730
+4. Leviers (Comores) : aucun -0.115 ; π seul +0.220 ; ν seul +0.518 ; M seul +0.599 ; ν+M +0.769 ; π+ν+M +0.769
+5. Comores, valeurs initiales : 81/81 combinaisons avec G final < 0 (statu quo) et > 0 (gouvernance équilibrée)
