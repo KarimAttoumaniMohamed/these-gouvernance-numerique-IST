@@ -980,8 +980,8 @@ def generate_figure_6_3(save=True):
     """Génère la Figure 6.3 : application au cas des Comores."""
     params = ModelParameters(); T = 25
     A_com = [min(0.65, 0.25+0.02*t) for t in range(T)]
-    X_base = [0.78]*T
-    X_S4   = [max(0.45, 0.78-0.015*t) for t in range(T)]
+    X_base = [0.80]*T
+    X_S4   = [max(0.45, 0.80-0.015*t) for t in range(T)]
 
     scenarios = [
         ScenarioConfig("Comores — Statu quo", 0.33,0.40,0.45,
@@ -1027,8 +1027,8 @@ def generate_figure_6_3(save=True):
         f"{'Gouvernance G':<18} {histories[0]['G'][-1]:>12.3f} {histories[1]['G'][-1]:>12.3f}",
         "", "Paramètres initiaux :",
         "  I₀=0,33 | S₀=0,40 | T₀=0,45",
-        "  X_t=0,78 (statu quo)",
-        "  X_t : 0,78→0,45 (sc. équilibré)",
+        "  X_t=0,80 (statu quo)",
+        "  X_t : 0,80→0,45 (sc. équilibré)",
     ]
     ax_s.text(0.05, 0.95, "\n".join(lines), transform=ax_s.transAxes,
               fontsize=8, verticalalignment='top', fontfamily='monospace',
