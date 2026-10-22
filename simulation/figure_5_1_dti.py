@@ -1,4 +1,4 @@
-"""Figure 5.1 de la thèse : DTI révisé (équations 5.2 à 5.4)."""
+"""Figure 5.1 de la thèse : DTI (équations 5.2 à 5.4)."""
 import sys; sys.path.insert(0,'.')
 import numpy as np, matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 from dti import GAMMA,DELTA,KAPPA,RC
@@ -9,7 +9,7 @@ def curves(Sb,R):
 R=np.linspace(0,1,1001)
 fig,ax=plt.subplots(3,1,figsize=(6.8,10),dpi=250)
 a=ax[0]
-for Sb,c,lab in [(0.70,'#2ca02c','UAMINIFU révisé, S̄ = 0,70'),(0.45,'#ff7f0e','UAMINIFU révisé, S̄ = 0,45')]:
+for Sb,c,lab in [(0.70,'#2ca02c','UAMINIFU, S̄ = 0,70'),(0.45,'#ff7f0e','UAMINIFU, S̄ = 0,45')]:
     T,D,_=curves(Sb,R); a.plot(R,D,color=c,lw=2.4,label=lab)
 a.plot(R,0.70-R,'--',color='#1f77b4',lw=1.8,label='Modèle linéaire (S̄ − R̄), S̄ = 0,70')
 a.axvline(RC,color='#d62728',ls='--',lw=1.6,label='Seuil critique Rc = 0,62'); a.axhline(-1,color='k',lw=.8,ls=':'); a.axhline(0,color='grey',lw=.6)
@@ -18,10 +18,10 @@ for x,y,t,dx,dy in [(0.125,0.630,'Scénario B',0.03,0.08),(0.708,-0.536,'Scénar
 a.set_xlim(0,1); a.set_ylim(-1.1,1.0); a.set_title('(a) Indice de confiance selon le risque moyen',fontsize=10.5); a.set_ylabel('DTI'); a.set_xlabel('Risque moyen R̄'); a.grid(alpha=.3); a.legend(fontsize=7.5,loc='lower left')
 a=ax[1]
 T,D,old=curves(0.45,R)
-a.plot(R,old,'-.',color='#9467bd',lw=2.2,label='Décroissance initiale T·e^(−κ(R̄−Rc)⁺)')
-a.plot(R,D,color='#ff7f0e',lw=2.4,label='Décroissance révisée (équation 5.3)')
+a.plot(R,old,'-.',color='#9467bd',lw=2.2,label='Décroissance multiplicative T·e^(−κ(R̄−Rc)⁺)')
+a.plot(R,D,color='#ff7f0e',lw=2.4,label='Décroissance vers le plancher (équation 5.3)')
 a.axvline(RC,color='#d62728',ls='--',lw=1.4); a.axhline(-1,color='k',lw=.8,ls=':'); a.axhline(0,color='grey',lw=.6)
-a.set_xlim(0.4,1); a.set_ylim(-1.1,0.3); a.set_title('(b) Correction de la non-monotonie (S̄ = 0,45)',fontsize=10.5); a.set_ylabel('DTI'); a.set_xlabel('Risque moyen R̄'); a.grid(alpha=.3); a.legend(fontsize=7.5,loc='lower left')
+a.set_xlim(0.4,1); a.set_ylim(-1.1,0.3); a.set_title('(b) Décroissance multiplicative et décroissance vers le plancher (S̄ = 0,45)',fontsize=10.5); a.set_ylabel('DTI'); a.set_xlabel('Risque moyen R̄'); a.grid(alpha=.3); a.legend(fontsize=7.5,loc='lower left')
 a.annotate('score négatif ramené vers 0\nquand le risque augmente',(0.9,old[900]),(0.66,0.12),fontsize=7.5,color='#9467bd',arrowprops=dict(arrowstyle='->',color='#9467bd'))
 a=ax[2]
 T,D,_=curves(0.70,R); tau=(1+D)/2; C=0.5+0.8/tau**1.4
