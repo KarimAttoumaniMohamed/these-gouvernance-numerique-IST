@@ -327,7 +327,7 @@ https://doi.org/10.1038/sdata.2016.18
 | Version | DOI |
 |---|---|
 | Toutes versions (DOI de concept, renvoie à la dernière version) | [10.5281/zenodo.20242474](https://doi.org/10.5281/zenodo.20242474) |
-| v3.0 — version révisée de la thèse (octobre 2026) | DOI attribué à la publication de la version |
+| v3.0 — version révisée de la thèse (octobre 2026) | [10.5281/zenodo.23557473](https://doi.org/10.5281/zenodo.23557473) |
 | v2.0 — version de la thèse (2026) | [10.5281/zenodo.23063106](https://doi.org/10.5281/zenodo.23063106) |
 | v1.0 — état des articles publiés (2025) | [10.5281/zenodo.20242475](https://doi.org/10.5281/zenodo.20242475) |
 
@@ -368,11 +368,11 @@ Si vous utilisez ce code ou ces résultats dans vos travaux, merci de citer :
 @software{karim2026code,
   author    = {Karim Attoumani Mohamed and Jérôme Velo},
   title     = {these-gouvernance-numerique-IST : code source et figures
-               de la th{\`e}se (version 2.0)},
+               de la th{\`e}se (version 3.0)},
   year      = {2026},
   publisher = {Zenodo},
-  version   = {v2.0},
-  doi       = {10.5281/zenodo.23063106}
+  version   = {v3.0},
+  doi       = {10.5281/zenodo.23557473}
 }
 
 @unpublished{karim2026uaminifu,
