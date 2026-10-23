@@ -4,6 +4,8 @@
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20242474.svg)](https://doi.org/10.5281/zenodo.20242474)
 
+**Français** · [English](README_EN.md)
+
 > **Dépôt de code associé à la thèse de doctorat :**
 >
 > *Gouvernance du numérique à l'ère de l'IA : modélisation systémique
@@ -39,7 +41,7 @@ R_t = r₁·A_t·I_t·(1−S_t) + r₂·(1−T_t)·X_t + r₃·A_t·X_t
 où R_t est le risque systémique, A_t l'intensité des usages IA et X_t
 la dépendance externe du système.
 
-**Paramètres calibrés :**
+**Paramètres retenus** (fixés par hypothèse et explorés par analyse de sensibilité, non estimés sur données) :
 
 | Paramètre | Valeur | Description |
 |-----------|--------|-------------|
@@ -75,6 +77,9 @@ piliers empiriques des variables I, S et T.
 these-gouvernance-numerique-IST/
 │
 ├── README.md                        ← Ce guide (installation, reproduction, périmètre)
+├── README_EN.md                     ← Version anglaise de ce guide
+├── CITATION.cff                     ← Métadonnées de citation (bouton « Cite this repository »)
+├── .zenodo.json                     ← Métadonnées de l'archive Zenodo
 ├── LICENSE                          ← Licence MIT (code)
 ├── requirements.txt                 ← Dépendances Python
 │
@@ -88,6 +93,7 @@ these-gouvernance-numerique-IST/
 │   ├── figure_6_4_comores.py        ← Figure 6.4
 │   ├── sensibilite_parametres.py    ← 42 simulations « un paramètre à la fois »
 │   ├── analyses_ch6.py              ← Monte-Carlo, variante couplée, leviers, valeurs initiales
+│   ├── icann86_codage.py            ← Codage I-S-T des 25 sessions de l'ICANN86 (Annexe C)
 │   └── en/                          ← Scripts des figures de la version anglaise (étiquettes traduites)
 │
 ├── resultats/                       ← Sorties numériques de référence des scripts
@@ -96,7 +102,9 @@ these-gouvernance-numerique-IST/
 ├── figures/                         ← Figures de la version 2.0 (historique)
 │
 └── data/
-    └── README_donnees.md            ← Sources de données et hypothèses
+    ├── icann86_sessions.csv         ← Comptages I, S, T des 25 sessions de l'ICANN86
+    ├── README_donnees.md            ← Sources de données et hypothèses
+    └── README_data_EN.md            ← Version anglaise
 ```
 
 ### Correspondance entre figures du manuscrit et scripts
@@ -144,6 +152,7 @@ python dti.py                       # chapitre 5 ; sortie de référence : resul
 python energie.py                   # chapitre 4 ; resultats/energie.txt
 python sensibilite_parametres.py    # resultats/sensibilite_un_a_la_fois.txt
 python analyses_ch6.py              # resultats/analyses_ch6.txt (graine 2026)
+python icann86_codage.py            # Annexe C ; resultats/icann86_synthese.txt
 python figure_5_1_dti.py ; python figure_6_1_diagramme_causal.py ; python figure_6_2_6_3.py ; python figure_6_4_comores.py
 ```
 
@@ -152,6 +161,7 @@ Paramètres : `ModelParameters` dans `generate_figures.py` (α = 0,35 ; β = 0,3
 ### Périmètre de reproductibilité
 
 - **Reproductibles depuis ce dépôt** : toutes les simulations et tous les calculs des chapitres 4, 5 et 6 (Tableaux 4.I, 5.IV, 6.II ; analyses de robustesse ; Figures 4.1 à 6.4). Les sorties de référence figurent dans `resultats/`.
+- **Reproductibles avec les transcriptions de l'ICANN** : le codage des 25 sessions de l'ICANN86 (section 6.3.7, Annexe C). `data/icann86_sessions.csv` contient les comptages par session, dont `icann86_codage.py` tire la synthèse de l'Annexe C. Le même script recalcule les comptages à partir des transcriptions VTT publiées par l'ICANN (`--transcripts DOSSIER`), qui ne sont pas redistribuées ici ; les fils de discussion (chat) des sessions ne sont pas utilisés.
 - **Partiellement reproductibles** : le chapitre 3. Les scripts régénèrent les visualisations et simulations du DSGM (Figures 3.1 et 3.2) à partir de poids et de paramètres renseignés dans le code. Ils ne refont ni l'extraction des données historiques IGF/IETF ni les calculs statistiques de l'article (R² = 0,82, intervalle de confiance) : ces valeurs sont reprises de Karim & Velo (2025a) et ne sont pas recalculées. Les jeux de données historiques ne sont pas inclus dans ce dépôt.
 - **Non publiés** : les réponses individuelles aux deux questionnaires (n = 8 et n = 9), qui contiennent des données personnelles ; seuls des résultats agrégés figurent dans la thèse.
 
@@ -181,26 +191,11 @@ pip install -r requirements.txt
 
 ## Utilisation
 
-### Générer toutes les figures
+### Générer les figures du manuscrit
 
-```bash
-python simulation/generate_figures.py   # figures historiques v2.0 ; voir la correspondance ci-dessus
-```
+Les neuf figures du manuscrit s'obtiennent avec les commandes de la section « Reproduire les résultats du manuscrit » ci-dessus, complétées par `generate_figures.py` pour les Figures 3.1, 3.2 et 4.2. Chaque script enregistre ses figures dans le répertoire courant, en PNG et en SVG (sauf la Figure 6.1, en PNG).
 
-Les huit figures sont sauvegardées dans le répertoire courant, chacune en
-PNG (300 dpi) et en SVG (vectoriel), sous les noms suivants (extension
-`.png` et `.svg`) :
-
-```
-Figure_3_1_DSGM_reseau_participation.png
-Figure_3_2_participation_scenarios.png
-Figure_4_1_energie_Afrique_2030.png
-Figure_4_2_lambda_orchestration.png
-Figure_5_1_UAMINIFU_trust_degradation.png
-Figure_6_1_quatre_scenarios.png
-Figure_6_2_sensibilite_lambda.png
-Figure_6_3_cas_Comores.png
-```
+`python simulation/generate_figures.py` produit en outre les huit figures historiques de la version 2.0 (dossier `figures/`), qui ne correspondent plus au manuscrit pour 4.1, 5.1 et 6.1 à 6.3.
 
 ### Modifier les paramètres du modèle
 
@@ -225,17 +220,16 @@ params = ModelParameters(
 ### Appliquer le modèle à un nouveau contexte
 
 Pour adapter le modèle à un autre pays ou contexte du Sud global,
-modifiez les conditions initiales dans la fonction `generate_figure_6_3()` :
+modifiez les conditions initiales et les trajectoires de A et X dans `figure_6_4_comores.py` :
 
 ```python
 # Exemple : adapter au contexte du Vanuatu
-sc_custom = ScenarioConfig(
-    name  = "Vanuatu — Statu quo",
-    I0    = 0.28,   # Taux de pénétration Internet
-    S0    = 0.38,   # Capacité infrastructurelle
-    T0    = 0.42,   # Niveau de confiance numérique estimé
-    ...
-)
+# ScenarioConfig(nom, I0, S0, T0, A, X, inclusion, investissement, audit, couleur, style)
+sc_custom = g.ScenarioConfig("Vanuatu — Statu quo",
+    0.28, 0.38, 0.42,      # I0, S0, T0 : valeurs à estimer sur sources publiques
+    A, [0.80]*T,           # intensité d'usage de l'IA, dépendance externe
+    False, False, False, '#d62728', '--')
+hist = g.run_simulation_G(sc_custom, g.ModelParameters(), T)
 ```
 
 ---
@@ -254,7 +248,7 @@ Les neuf figures du manuscrit sont dans `figures_these/`, par exemple :
 
 Les résultats ci-dessous sont ceux du manuscrit final de la thèse (2026).
 Lorsqu'ils diffèrent de ceux des articles, l'écart est signalé ; voir aussi
-la section [Écarts articles → thèse](#écarts-articles--thèse-version-20).
+la section [Écarts articles → thèse](#écarts-articles--thèse-versions-20-et-3x).
 
 ### Asymétries de participation (Figure 3.1 — Karim & Velo, 2025a)
 - 92 % des positions de leadership à l'IETF sont détenues par le Nord global
@@ -300,7 +294,7 @@ la section [Écarts articles → thèse](#écarts-articles--thèse-version-20).
 
 ## Écarts articles → thèse (versions 2.0 et 3.x)
 
-La version 3.0 (octobre 2026) accompagne la révision du manuscrit : DTI révisé (borné et monotone), projections énergétiques recalculées sans double projection pour l'année 2030, X₀ = 0,80 pour les Comores, analyses de robustesse et figures sous la numérotation de la thèse. Les calculs correspondants sont dans les scripts ajoutés listés plus haut. La version 3.0.1 harmonise les libellés de la Figure 5.1 (script et image) avec le manuscrit ; les résultats numériques sont inchangés. La version 3.0.2 ajoute `figure_6_2_6_3.py`, qui produit les Figures 6.2 et 6.3 dans la mise en page du manuscrit (le dossier `figures_these/` contenait jusque-là les versions de `generate_figures.py`, aux données identiques mais à la mise en page différente), ainsi que les scripts et figures de la version anglaise (`simulation/en/`, `figures_these_en/`) ; les résultats numériques sont inchangés.
+La version 3.0 (octobre 2026) accompagne la révision du manuscrit : DTI révisé (borné et monotone), projections énergétiques recalculées sans double projection pour l'année 2030, X₀ = 0,80 pour les Comores, analyses de robustesse et figures sous la numérotation de la thèse. Les calculs correspondants sont dans les scripts ajoutés listés plus haut. La version 3.0.1 harmonise les libellés de la Figure 5.1 (script et image) avec le manuscrit ; les résultats numériques sont inchangés. La version 3.1.0 consolide le dépôt pour les versions française et anglaise du manuscrit : `figure_6_2_6_3.py` produit les Figures 6.2 et 6.3 dans la mise en page du manuscrit (le dossier `figures_these/` contenait jusque-là les versions de `generate_figures.py`, aux données identiques mais à la mise en page différente) ; scripts et figures de la version anglaise (`simulation/en/`, `figures_these_en/`) ; codage des sessions de l'ICANN86 (`icann86_codage.py`, `data/icann86_sessions.csv`), annoncé dans la thèse mais absent des versions précédentes ; documentation en anglais (`README_EN.md`, `data/README_data_EN.md`) ; métadonnées de citation (`CITATION.cff`, `.zenodo.json`). Les résultats numériques sont inchangés.
 
 
 La version 1.0 de ce dépôt (2025) reprenait les résultats des articles. La
@@ -435,4 +429,4 @@ zjvelo@gmail.com
 
 ---
 
-*Dépôt créé en 2025 — Version 3.0.2 (octobre 2026), alignée sur le manuscrit révisé de la thèse et sa version anglaise*
+*Dépôt créé en 2025 — Version 3.1.0 (octobre 2026), alignée sur le manuscrit révisé de la thèse et sa version anglaise*
