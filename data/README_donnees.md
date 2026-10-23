@@ -144,19 +144,19 @@ listées à la suite (thèse, § 4.2).*
 
 **Description**
 Les courbes de la Figure 5.1 sont issues d'une simulation sur scénarios
-stylisés et non d'une collecte empirique directe. Les paramètres sont calibrés
-sur des hypothèses plausibles fondées sur la littérature existante. Le cadre
+stylisés et non d'une collecte empirique directe. Les paramètres sont fixés
+par hypothèse, à partir de la littérature existante, et non estimés sur données. Le cadre
 UAMINIFU est développé au chapitre 5 de la thèse (document de travail, à
 soumettre).
 
-**Paramètres de calibration**
+**Paramètres retenus**
 
 | Paramètre | Valeur | Justification |
 |-----------|--------|---------------|
 | γ (amplification confiance) | 1,15 | Non-linéarité modérée — littérature sur systèmes sociotechniques |
 | δ (amplification risque) | 1,55 | Non-linéarité forte — Helbing (2013), Taleb (2007) |
 | κ (vitesse décroissance) | 7,0 | Décroissance rapide post-seuil — GSMA (2023) |
-| Rc (seuil critique) | 0,62 | Seuil de basculement — calibration stylisée |
+| Rc (seuil critique) | 0,62 | Seuil de basculement — valeur stylisée |
 
 **Formulation révisée (thèse, § 5.2 et 5.3)**
 Le DTI est calculé sur les moyennes des facteurs (S̄ = ΣSᵢ/n, R̄ = ΣRⱼ/m), le terme
@@ -281,11 +281,48 @@ du dossier `simulation/` (correspondance dans le README principal) :
 
 ```bash
 cd simulation
-python generate_figures.py ; python figure_6_1_diagramme_causal.py ; python figure_6_4_comores.py
+python figure_6_1_diagramme_causal.py ; python figure_6_2_6_3.py ; python figure_6_4_comores.py
 ```
 
 **Figures concernées**
 6.1, 6.2, 6.3, 6.4
+
+---
+
+## 7. Sessions de l'ICANN86 Policy Forum (Chapitre 6, Annexe C)
+
+**Description**
+Comptages I, S et T des 25 sessions enregistrées de l'ICANN86 Policy Forum
+(Séville, 8-11 juin 2026) : 5 sessions de la ccNSO, 8 d'At-Large et 12 du GAC.
+Fichier : `data/icann86_sessions.csv` (une ligne par session : identifiant de
+l'enregistrement Zoom, communauté, date et heure de début en UTC, intitulé,
+comptages selon les deux règles).
+
+**Source**
+Transcriptions automatiques (VTT) des enregistrements Zoom publiés par l'ICANN
+pour chaque session : https://icann86.sched.com/list/simple
+
+**Conditions d'accès**
+Les enregistrements et transcriptions sont publics sur le site de l'ICANN. Ils
+ne sont pas redistribués dans ce dépôt ; les fils de discussion (chat), qui
+contiennent des échanges entre participants nommés, ne sont pas utilisés.
+
+**Traitement appliqué** (script `simulation/icann86_codage.py`)
+- Un segment (ligne de sous-titre, sans le nom de l'orateur) est compté une
+  fois pour une variable s'il contient au moins un mot-clé de cette variable
+  (dictionnaire de l'Annexe C)
+- Règle « sous-chaine » (comptages de la thèse) : recherche de la chaîne,
+  insensible à la casse ; elle retient aussi des mots qui contiennent un
+  mot-clé (« observer » pour « server »)
+- Règle « mot » (variante de contrôle) : mots entiers, pluriel accepté ; elle
+  réduit S de 356 à 309 segments sans changer la variable dominante d'aucune
+  communauté
+- Les intitulés sont reconstitués à partir de l'annonce d'ouverture de chaque
+  transcription (corrigée des erreurs de reconnaissance vocale)
+
+**Figures et tableaux concernés**
+Section 6.3.7 ; tableau de synthèse de l'Annexe C (sortie de référence :
+`resultats/icann86_synthese.txt`)
 
 ---
 
@@ -307,4 +344,4 @@ https://doi.org/10.1038/sdata.2016.18
 
 ---
 
-*Dernière mise à jour : 2026 — Version 2.0 (alignée sur le manuscrit final de la thèse)*
+*Dernière mise à jour : octobre 2026 — Version 3.1.0 (alignée sur le manuscrit révisé de la thèse). Version anglaise : [README_data_EN.md](README_data_EN.md)*

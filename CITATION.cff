@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below. / Si vous utilisez ce logiciel, merci de le citer comme suit."
+title: "these-gouvernance-numerique-IST: code source et figures de la thèse (I–S–T model of digital governance)"
+type: software
+authors:
+  - family-names: "Attoumani Mohamed"
+    given-names: "Karim"
+    email: "attoukarim@gmail.com"
+    affiliation: "Université de Toamasina, Faculté des Sciences et Technologies"
+  - family-names: "Velo"
+    given-names: "Jérôme"
+    affiliation: "Université de Toamasina, Faculté des Sciences et Technologies"
+version: "3.1.0"
+date-released: "2026-10-23"
+license: MIT
+repository-code: "https://github.com/KarimAttoumaniMohamed/these-gouvernance-numerique-IST"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20242474"
+    description: "Concept DOI (all versions) / DOI de concept (toutes versions)"
+abstract: >-
+  Simulation code and figures of the doctoral thesis "Gouvernance du numérique
+  à l'ère de l'IA : modélisation systémique de l'inclusion, de la soutenabilité
+  et de la confiance" (University of Toamasina, 2026): dynamic governance model
+  G(t) linking inclusion (I), sustainability (S) and trust (T), revised digital
+  trust index (DTI, UAMINIFU framework), AI energy projections for Africa and
+  the case of the Comoros. Figures are provided for the French manuscript and
+  its English version.
+keywords:
+  - digital governance
+  - Internet governance
+  - artificial intelligence
+  - systems modelling
+  - digital trust
+  - sustainability
+  - inclusion
+  - Comoros
+  - small island developing states
+references:
+  - type: conference-paper
+    title: "Towards Inclusive Internet Governance: A Multidimensional Analysis of Systemic Barriers and Reform Strategies"
+    authors:
+      - family-names: "Karim"
+        given-names: "A. M."
+      - family-names: "Velo"
+        given-names: "J."
+    collection-title: "Proceedings of ICECER 2025"
+    year: 2025
+    doi: "10.1109/ICECER65523.2025.11401243"
+  - type: conference-paper
+    title: "Towards Sustainable Internet Governance: Energy and Bandwidth Challenges in the Era of AI"
+    authors:
+      - family-names: "Karim"
+        given-names: "A. M."
+      - family-names: "Velo"
+        given-names: "J."
+    collection-title: "Proceedings of ICECER 2025"
+    year: 2025
+    doi: "10.1109/ICECER65523.2025.11401095"
