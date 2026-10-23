@@ -79,17 +79,20 @@ these-gouvernance-numerique-IST/
 ├── requirements.txt                 ← Dépendances Python
 │
 ├── simulation/
-│   ├── generate_figures.py          ← Modèle G(t), scénarios, figures 3.1, 3.2, 4.2, 6.2, 6.3
+│   ├── generate_figures.py          ← Modèle G(t), scénarios, figures 3.1, 3.2, 4.2
 │   ├── energie.py                   ← Tableau 4.I et Figure 4.1 (demande liée à l'IA en 2030)
 │   ├── dti.py                       ← DTI révisé, Tableau 5.IV, scénarios A et B, sensibilités
 │   ├── figure_5_1_dti.py            ← Figure 5.1
 │   ├── figure_6_1_diagramme_causal.py ← Figure 6.1
+│   ├── figure_6_2_6_3.py            ← Figures 6.2 et 6.3 (mise en page du manuscrit)
 │   ├── figure_6_4_comores.py        ← Figure 6.4
 │   ├── sensibilite_parametres.py    ← 42 simulations « un paramètre à la fois »
-│   └── analyses_ch6.py              ← Monte-Carlo, variante couplée, leviers, valeurs initiales
+│   ├── analyses_ch6.py              ← Monte-Carlo, variante couplée, leviers, valeurs initiales
+│   └── en/                          ← Scripts des figures de la version anglaise (étiquettes traduites)
 │
 ├── resultats/                       ← Sorties numériques de référence des scripts
 ├── figures_these/                   ← Figures du manuscrit (numérotation de la thèse)
+├── figures_these_en/                ← Figures de la version anglaise du manuscrit
 ├── figures/                         ← Figures de la version 2.0 (historique)
 │
 └── data/
@@ -106,11 +109,31 @@ these-gouvernance-numerique-IST/
 | 4.2 | `generate_figures.py` → `generate_figure_4_2` | `Figure_4_2_lambda_orchestration` |
 | 5.1 | `figure_5_1_dti.py` | `Figure_5_1_DTI` |
 | 6.1 | `figure_6_1_diagramme_causal.py` | `Figure_6_1_diagramme_causal` |
-| 6.2 | `generate_figures.py` → `generate_figure_6_1` (ancienne numérotation) | `Figure_6_1_quatre_scenarios` |
-| 6.3 | `generate_figures.py` → `generate_figure_6_2` (ancienne numérotation) | `Figure_6_2_sensibilite_lambda` |
+| 6.2 | `figure_6_2_6_3.py` | `Figure_6_2_quatre_scenarios` |
+| 6.3 | `figure_6_2_6_3.py` | `Figure_6_3_sensibilite_lambda` |
 | 6.4 | `figure_6_4_comores.py` | `Figure_6_4_cas_Comores` |
 
-Les fonctions `generate_figure_4_1`, `generate_figure_5_1` et `generate_figure_6_3` de `generate_figures.py` produisent les figures de la version 2.0 ; elles sont conservées pour l'historique et ne correspondent plus au manuscrit. Le dossier `figures_these/` contient les neuf figures sous la numérotation du manuscrit.
+Les fonctions `generate_figure_4_1`, `generate_figure_5_1`, `generate_figure_6_1`, `generate_figure_6_2` et `generate_figure_6_3` de `generate_figures.py` produisent les figures de la version 2.0 ; elles sont conservées pour l'historique et ne correspondent plus au manuscrit. `figure_6_2_6_3.py` reprend les simulations de `generate_figure_6_1` et `generate_figure_6_2` (mêmes scénarios, mêmes paramètres) dans la mise en page du manuscrit. Le dossier `figures_these/` contient les neuf figures sous la numérotation du manuscrit.
+
+### Version anglaise du manuscrit
+
+Une traduction anglaise de la thèse (version complémentaire, le dépôt officiel restant en français) utilise six figures régénérées avec des étiquettes en anglais et des décimales à point. Les scripts se trouvent dans `simulation/en/` ; ils importent les fonctions du modèle depuis `simulation/` (`generate_figures.py`, `dti.py`) et n'en modifient aucun paramètre : seules les étiquettes changent. Les figures 3.1, 3.2 et 4.2, déjà en anglais (articles IEEE), ne sont pas dupliquées.
+
+| Figure | Script (`simulation/en/`) | Fichier produit (`figures_these_en/`) |
+|---|---|---|
+| 4.1 | `figure_4_1_ai_demand_en.py` | `Figure_4_1_AI_demand` |
+| 5.1 | `figure_5_1_dti_en.py` | `Figure_5_1_DTI` |
+| 6.1 | `figure_6_1_causal_loop_en.py` | `Figure_6_1_causal_loop_diagram` |
+| 6.2 et 6.3 | `figure_6_2_6_3_en.py` | `Figure_6_2_four_scenarios`, `Figure_6_3_lambda_sensitivity` |
+| 6.4 | `figure_6_4_comoros_en.py` | `Figure_6_4_Comoros_case` |
+
+```bash
+cd simulation/en
+python figure_4_1_ai_demand_en.py ; python figure_5_1_dti_en.py ; python figure_6_1_causal_loop_en.py
+python figure_6_2_6_3_en.py ; python figure_6_4_comoros_en.py
+```
+
+Chaque script anglais est la traduction, étiquette par étiquette, du script français correspondant (`figure_6_2_6_3_en.py` pour `figure_6_2_6_3.py`, etc.).
 
 ### Reproduire les résultats du manuscrit
 
@@ -121,7 +144,7 @@ python dti.py                       # chapitre 5 ; sortie de référence : resul
 python energie.py                   # chapitre 4 ; resultats/energie.txt
 python sensibilite_parametres.py    # resultats/sensibilite_un_a_la_fois.txt
 python analyses_ch6.py              # resultats/analyses_ch6.txt (graine 2026)
-python figure_5_1_dti.py ; python figure_6_1_diagramme_causal.py ; python figure_6_4_comores.py
+python figure_5_1_dti.py ; python figure_6_1_diagramme_causal.py ; python figure_6_2_6_3.py ; python figure_6_4_comores.py
 ```
 
 Paramètres : `ModelParameters` dans `generate_figures.py` (α = 0,35 ; β = 0,35 ; χ = 0,30 ; γ = 1,15 ; δ = 1,55 ; θ = 1,35 ; r₁ = 0,40 ; r₂ = 0,35 ; r₃ = 0,25 ; φ = 0,50 ; Rc = 0,62 ; κ = 7,0 ; coefficients des équations 6.1 à 6.3 : 0,08 ; −0,10 ; 0,05 ; −0,12 ; 0,06 ; 0,09 ; 0,07 ; −0,08 ; Sc = 0,40). Comores : I₀ = 0,33 ; S₀ = 0,40 ; T₀ = 0,45 ; X₀ = 0,80 ; A de 0,25 à 0,65 ; 25 périodes. DTI : facteurs et interactions des tableaux 5.I à 5.III, repris dans `dti.py`. Tirages aléatoires : graine 2026.
@@ -275,9 +298,9 @@ la section [Écarts articles → thèse](#écarts-articles--thèse-version-20).
 
 ---
 
-## Écarts articles → thèse (versions 2.0 et 3.0)
+## Écarts articles → thèse (versions 2.0 et 3.x)
 
-La version 3.0 (octobre 2026) accompagne la révision du manuscrit : DTI révisé (borné et monotone), projections énergétiques recalculées sans double projection pour l'année 2030, X₀ = 0,80 pour les Comores, analyses de robustesse et figures sous la numérotation de la thèse. Les calculs correspondants sont dans les scripts ajoutés listés plus haut. La version 3.0.1 harmonise les libellés de la Figure 5.1 (script et image) avec le manuscrit ; les résultats numériques sont inchangés.
+La version 3.0 (octobre 2026) accompagne la révision du manuscrit : DTI révisé (borné et monotone), projections énergétiques recalculées sans double projection pour l'année 2030, X₀ = 0,80 pour les Comores, analyses de robustesse et figures sous la numérotation de la thèse. Les calculs correspondants sont dans les scripts ajoutés listés plus haut. La version 3.0.1 harmonise les libellés de la Figure 5.1 (script et image) avec le manuscrit ; les résultats numériques sont inchangés. La version 3.0.2 ajoute `figure_6_2_6_3.py`, qui produit les Figures 6.2 et 6.3 dans la mise en page du manuscrit (le dossier `figures_these/` contenait jusque-là les versions de `generate_figures.py`, aux données identiques mais à la mise en page différente), ainsi que les scripts et figures de la version anglaise (`simulation/en/`, `figures_these_en/`) ; les résultats numériques sont inchangés.
 
 
 La version 1.0 de ce dépôt (2025) reprenait les résultats des articles. La
@@ -412,4 +435,4 @@ zjvelo@gmail.com
 
 ---
 
-*Dépôt créé en 2025 — Version 3.0.1 (octobre 2026), alignée sur le manuscrit révisé de la thèse*
+*Dépôt créé en 2025 — Version 3.0.2 (octobre 2026), alignée sur le manuscrit révisé de la thèse et sa version anglaise*
