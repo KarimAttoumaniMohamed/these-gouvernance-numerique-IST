@@ -14,7 +14,11 @@ version: "3.1.0"
 date-released: "2026-10-23"
 license: MIT
 repository-code: "https://github.com/KarimAttoumaniMohamed/these-gouvernance-numerique-IST"
+doi: "10.5281/zenodo.23591446"
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23591446"
+    description: "Version 3.1.0"
   - type: doi
     value: "10.5281/zenodo.20242474"
     description: "Concept DOI (all versions) / DOI de concept (toutes versions)"
