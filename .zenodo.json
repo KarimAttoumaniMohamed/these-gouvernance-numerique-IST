@@ -2,17 +2,41 @@
   "upload_type": "software",
   "title": "these-gouvernance-numerique-IST : code source et figures de la thèse (I–S–T model of digital governance)",
   "creators": [
-    {"name": "Attoumani Mohamed, Karim", "affiliation": "Université de Toamasina, Faculté des Sciences et Technologies"},
-    {"name": "Velo, Jérôme", "affiliation": "Université de Toamasina, Faculté des Sciences et Technologies"}
+    {
+      "name": "Attoumani Mohamed, Karim",
+      "affiliation": "Université de Toamasina, Faculté des Sciences et Technologies"
+    },
+    {
+      "name": "Velo, Jérôme",
+      "affiliation": "Université de Toamasina, Faculté des Sciences et Technologies"
+    }
   ],
   "description": "<p>Code de simulation et figures de la thèse de doctorat <em>Gouvernance du numérique à l'ère de l'IA : modélisation systémique de l'inclusion, de la soutenabilité et de la confiance</em> (Université de Toamasina, 2026) : modèle dynamique de gouvernance G(t) articulant inclusion (I), soutenabilité (S) et confiance (T), indice de confiance numérique révisé (DTI, cadre UAMINIFU), projections énergétiques de l'IA en Afrique et cas des Comores. Les figures sont fournies pour le manuscrit français et sa version anglaise.</p><p>Simulation code and figures of the doctoral thesis <em>Digital governance in the age of AI: systemic modelling of inclusion, sustainability and trust</em> (University of Toamasina, 2026): dynamic governance model G(t) linking inclusion (I), sustainability (S) and trust (T), revised digital trust index (DTI, UAMINIFU framework), AI energy projections for Africa and the case of the Comoros. Figures are provided for the French manuscript and its English version.</p><p>Version 3.1.0 : consolidation des versions française et anglaise ; résultats numériques inchangés depuis la v3.0. / Consolidation of the French and English versions; numerical results unchanged since v3.0.</p>",
   "version": "3.1.0",
   "language": "fra",
   "license": "mit",
-  "keywords": ["digital governance", "Internet governance", "artificial intelligence", "systems modelling", "digital trust", "sustainability", "inclusion", "Comoros", "small island developing states", "gouvernance du numérique"],
+  "keywords": [
+    "digital governance",
+    "Internet governance",
+    "artificial intelligence",
+    "systems modelling",
+    "digital trust",
+    "sustainability",
+    "inclusion",
+    "Comoros",
+    "small island developing states",
+    "gouvernance du numérique"
+  ],
   "related_identifiers": [
-    {"identifier": "10.1109/ICECER65523.2025.11401243", "relation": "isSupplementTo", "scheme": "doi", "resource_type": "publication-conferencepaper"},
-    {"identifier": "10.1109/ICECER65523.2025.11401095", "relation": "isSupplementTo", "scheme": "doi", "resource_type": "publication-conferencepaper"},
-    {"identifier": "https://github.com/karimattoumanimohamed/DSGM-Dashboard", "relation": "isRelatedTo", "scheme": "url", "resource_type": "software"}
+    {
+      "identifier": "10.1109/ICECER65523.2025.11401243",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1109/ICECER65523.2025.11401095",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
   ]
 }
